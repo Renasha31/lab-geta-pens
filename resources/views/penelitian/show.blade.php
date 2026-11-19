@@ -6,12 +6,10 @@
 @php
     $data = json_decode($penelitian->isi, true);
 
-    // Mengatasi jika data JSON tersimpan dua kali
     if (is_string($data)) {
         $data = json_decode($data, true);
     }
 
-    // Jika data berasal dari format lama
     if (!is_array($data) || !isset($data['isi_penelitian'])) {
         $data = [
             'isi_penelitian' => $penelitian->isi,
@@ -21,13 +19,11 @@
     }
 
     $gambar = $data['gambar'] ?? [];
+    $deskripsi = $data['deskripsi_foto'] ?? [];
 
-    // Cadangan jika belum ada daftar gambar
     if (empty($gambar) && $penelitian->image) {
         $gambar = [$penelitian->image];
     }
-
-    $deskripsi = $data['deskripsi_foto'] ?? [];
 @endphp
 
 <style>
@@ -45,12 +41,32 @@
         margin-bottom: 25px;
     }
 
-    .research-image {
+    .main-image {
         text-align: center;
         margin-bottom: 30px;
     }
 
-    .research-image img {
+    .main-image img {
+        width: 100%;
+        max-height: 450px;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+
+    .research-content {
+        font-size: 18px;
+        line-height: 1.9;
+        color: #444;
+        text-align: justify;
+        margin-bottom: 30px;
+    }
+
+    .other-image {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .other-image img {
         max-width: 100%;
         height: 300px;
         object-fit: contain;
@@ -61,14 +77,6 @@
         margin-top: 10px;
         font-size: 15px;
         color: #666;
-    }
-
-    .research-content {
-        font-size: 18px;
-        line-height: 1.9;
-        color: #444;
-        text-align: justify;
-        margin-top: 25px;
     }
 
     .research-meta {
@@ -83,26 +91,35 @@
 
     <h2>{{ $penelitian->judul }}</h2>
 
-    {{-- Gambar penelitian --}}
-    @foreach ($gambar as $index => $foto)
-        <div class="research-image">
+    {{-- Foto utama --}}
+    @if (isset($gambar[0]))
+        <div class="main-image">
             <img
-                src="{{ asset('storage/' . $foto) }}"
-                alt="Gambar penelitian {{ $index + 1 }}"
+                src="{{ asset('storage/' . $gambar[0]) }}"
+                alt="{{ $penelitian->judul }}"
             >
-
-            <div class="image-description">
-                {{ $deskripsi[$index] ?? '' }}
-            </div>
         </div>
-    @endforeach
+    @endif
 
     {{-- Isi penelitian --}}
     <div class="research-content">
         {!! nl2br(e($data['isi_penelitian'] ?? '')) !!}
     </div>
 
-    {{-- Informasi penelitian --}}
+    {{-- Foto lainnya --}}
+    @for ($i = 1; $i < count($gambar); $i++)
+        <div class="other-image">
+            <img
+                src="{{ asset('storage/' . $gambar[$i]) }}"
+                alt="Gambar penelitian {{ $i + 1 }}"
+            >
+
+            <div class="image-description">
+                {{ $deskripsi[$i] ?? '' }}
+            </div>
+        </div>
+    @endfor
+
     <div class="research-meta">
         <div>{{ $penelitian->tanggal }}</div>
         <div>{!! nl2br(e($penelitian->peneliti)) !!}</div>
