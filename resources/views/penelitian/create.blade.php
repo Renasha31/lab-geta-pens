@@ -34,8 +34,19 @@
                 <label>Anggota Peneliti</label>
                 <input type="text" name="peneliti" required placeholder="Anggota Peneliti" class="form-control mb-3">
 
-                <label>Gambar Penelitian</label>
-                <input type="file" name="image" required class="form-control mb-3">
+
+                <label>Gambar Penelitian (Maksimal 5)</label>
+
+                @for ($i = 1; $i <= 5; $i++)
+                    <label>Gambar {{ $i }}</label>
+                    <input type="file" name="image[]" accept="image/*"
+                        class="form-control mb-2" required>
+
+                    <label>Deskripsi Gambar {{ $i }}</label>
+                    <textarea name="deskripsi_foto[]"
+                        class="form-control mb-3"
+                        placeholder="Deskripsi gambar {{ $i }}" required></textarea>
+                @endfor
 
                 <div class="text-end">
                     <button type="submit" class="btn btn-primary">Simpan</button>

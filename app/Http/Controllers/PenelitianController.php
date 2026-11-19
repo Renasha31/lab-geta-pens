@@ -44,12 +44,40 @@ class PenelitianController extends Controller
     public function store(Request $request)
     {
 
-        $image = $request->file('image')->store('images', 'public');
-        $input = $request->all();
-        $input['image'] = "$image";
-        $input['penulis_id'] = 1;
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'tanggal' => 'required|date',
+            'peneliti' => 'required',
+            'image' => 'required|array|max:5',
+            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'deskripsi_foto' => 'required|array|max:5',
+            'deskripsi_foto.*' => 'required|string',
+        ]);
 
-        Penelitian::create($input);
+        $image = [];
+
+        foreach ($request->file('image', []) as $foto) {
+            if ($foto) {
+                $image[] = $foto->store('images', 'public');
+            }
+        }
+
+        $isi = [
+            'isi_penelitian' => $request->isi,
+            'gambar' =>$image,
+            'deskripsi_foto' => $request->deskripsi_foto,
+        ];
+
+        Penelitian::create([
+            'judul' => $request->judul,
+            'isi'=> json_encode($isi),
+            'tanggal' => $request->tanggal,
+            'peneliti' => $request->peneliti,
+            'image' => $image[0],
+            'penulis_id' => 1,
+        ]);
+
         return redirect()->route('penelitian.index');
     }
 
