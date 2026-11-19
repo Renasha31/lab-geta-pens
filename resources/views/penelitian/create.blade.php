@@ -28,6 +28,11 @@
                 <label>Isi Penelitian</label>
                 <textarea name="isi" placeholder="Isi Hasil Penelitian" required rows="5" class="form-control mb-3"></textarea>
 
+                <label>Gambar</label>
+                    <input type="file" name="image[]" accept="image/*"
+                        class="form-control mb-2" required>
+
+
                 <label>Tanggal</label>
                 <input type="date" name="tanggal" required class="form-control mb-3">
 
@@ -35,9 +40,9 @@
                 <input type="text" name="peneliti" required placeholder="Anggota Peneliti" class="form-control mb-3">
 
 
-                <label>Gambar Penelitian (Maksimal 5)</label>
+                <label>Gambar Penelitian (Maks 4)</label>
 
-                @for ($i = 1; $i <= 5; $i++)
+                @for ($i = 1; $i <= 4; $i++)
                     <label>Gambar {{ $i }}</label>
                     <input type="file" name="image[]" accept="image/*"
                         class="form-control mb-2" required>
