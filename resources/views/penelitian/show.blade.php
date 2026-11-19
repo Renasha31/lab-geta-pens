@@ -106,19 +106,21 @@
         {!! nl2br(e($data['isi_penelitian'] ?? '')) !!}
     </div>
 
-    {{-- Foto lainnya --}}
-    @for ($i = 1; $i < count($gambar); $i++)
-        <div class="other-image">
-            <img
-                src="{{ asset('storage/' . $gambar[$i]) }}"
-                alt="Gambar penelitian {{ $i + 1 }}"
-            >
+        {{-- Foto lainnya --}}
+    @foreach ($gambar as $index => $foto)
+        @if ($index > 0)
+            <div class="other-image">
+                <img
+                    src="{{ asset('storage/' . $foto) }}"
+                    alt="Gambar penelitian {{ $index + 1 }}"
+                >
 
-            <div class="image-description">
-                {{ $deskripsi[$i] ?? '' }}
+                <div class="image-description">
+                    {{ $deskripsi[$index - 1] ?? '' }}
+                </div>
             </div>
-        </div>
-    @endfor
+        @endif
+    @endforeach
 
     <div class="research-meta">
         <div>{{ $penelitian->tanggal }}</div>
