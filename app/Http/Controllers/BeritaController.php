@@ -11,9 +11,9 @@ class BeritaController extends Controller
      * Display a listing of the resource.
      */
 
-        public function depanb()
+    public function depanb()
     {
-        $berita = Berita::latest()->get();
+        $berita = Berita::latest()->take(5)->get();
         return view('berita.depanb', compact('berita'));
     }
 

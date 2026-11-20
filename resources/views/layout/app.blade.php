@@ -154,7 +154,22 @@
     </div>
 
     <div class="container">
+        @yield('top-content')
+
+    @if (request()->is('penelitian*', 'anggota*', 'berita', 'berita/*', 'login'))
         @yield('content')
+    @else
+
+        <div class="row">
+            <div class="col-lg-8">
+                @yield('content')
+            </div>
+
+            <div class="col-lg-4 mt-3">
+                @include('sidebar')
+            </div>
+        </div>
+    @endif
     </div>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

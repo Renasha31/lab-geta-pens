@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('title', 'welcome')
-@section('content')
+@section('top-content')
     <style>
         .research-detail {
             font-family: 'Arial', sans-serif;
@@ -56,6 +56,9 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+@endsection
+@section('content')
 
     <h2 class="mt-4">Selamat datang di Laboratorium Green Energy, Transpotation, And Application.</h2>
     <hr>
