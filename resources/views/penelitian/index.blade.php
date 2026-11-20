@@ -63,7 +63,20 @@
                         <tr>
                             <td>{{ $penelitian->firstItem() + $index }}</td>
                             <td>{{ $p->judul }}</td>
-                            <td>{{ Str::limit($p->isi, 70, '...') }}</td>
+                            <td>
+                                @php
+                                    $dataIsi = json_decode($p->isi, true);
+
+                                    if (is_string($dataIsi)) {
+                                        $dataIsi = json_decode($dataIsi, true);
+                                    }
+
+                                    $isiTampil = is_array($dataIsi)
+                                        ? ($dataIsi['isi_penelitian'] ?? $p->isi)
+                                        : $p->isi;
+                                @endphp
+                                {{ Str::limit($isiTampil, 70, '...') }}
+                            </td>
                             <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->peneliti }}</td>
                             <td>

@@ -110,49 +110,56 @@ class PenelitianController extends Controller
     {
         $penelitian = Penelitian::findOrFail($id);
 
-        $request->validate([
-            'judul' => 'required',
-            'isi' => 'required',
-            'tanggal' => 'required|date',
-            'peneliti' => 'required',
-            'image' => 'required|array|max:5',
-            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-            'gambar_lama' => 'required|array',
-            'deskripsi_foto' => 'required|array|max:4',
-            'deskripsi_foto.*' => 'required|string',
-        ]);
+    $request->validate([
+        'judul' => 'required',
+        'isi' => 'required',
+        'tanggal' => 'required|date',
+        'peneliti' => 'required',
+        'image' => 'nullable|array|max:5',
+        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'gambar_lama' => 'nullable|array',
+        'deskripsi_foto' => 'nullable|array|max:4',
+        'deskripsi_foto.*' => 'nullable|string',
+    ]);
 
-        $dataLama = json_decode($penelitian->isi, true);
+    $dataLama = json_decode($penelitian->isi, true);
 
-        if (is_string($dataLama)) {
-            $dataLama = json_decode($dataLama, true);
+    if (is_string($dataLama)) {
+        $dataLama = json_decode($dataLama, true);
+    }
+
+    $gambar = $dataLama['gambar'] ?? [$penelitian->image];
+    $deskripsi = $dataLama['deskripsi_foto'] ?? [];
+
+    // Mengganti foto lama hanya jika ada foto baru
+    foreach ($request->file('image', []) as $index => $foto) {
+        if ($foto) {
+            $gambar[$index] = $foto->store('images', 'public');
         }
+    }
 
-        $gambar = $request->gambar_lama;
+    // Mengambil deskripsi baru jika dikirim
+    if ($request->has('deskripsi_foto')) {
+        $deskripsi = $request->deskripsi_foto;
+    }
 
-        foreach ($request->file('image', []) as $index => $foto) {
-            if ($foto) {
-                $gambar[$index] = $foto->store('images', 'public');
-            }
-        }
+    $gambar = array_values($gambar);
 
-        ksort($gambar);
-        $gambar = array_values($gambar);
+    $isi = [
+        'isi_penelitian' => $request->isi,
+        'gambar' => $gambar,
+        'deskripsi_foto' => array_values($deskripsi),
+    ];
 
-        $isi = [
-            'isi_penelitan' => $request->isi,
-            'gambar' => $gambar,
-            'deskripsi_foto' =>array_values($request->deskripsi_foto ?? [])
-        ];
+    $penelitian->judul = $request->judul;
+    $penelitian->isi = json_encode($isi);
+    $penelitian->image = $gambar[0] ?? $penelitian->image;
+    $penelitian->tanggal = $request->tanggal;
+    $penelitian->peneliti = $request->peneliti;
 
-        $penelitian->judul = $request->judul;
-        $penelitian->isi = json_encode($isi);
-        $penelitian->image = $gambar[0] ?? $penelitian->image;
-        $penelitian->tanggal = $request->tanggal;
-        $penelitian->peneliti = $request->peneliti;
-        $penelitian->save();
+    $penelitian->save();
 
-        return redirect()->route('penelitian.index');
+    return redirect()->route('penelitian.index');
     }
 
     /**

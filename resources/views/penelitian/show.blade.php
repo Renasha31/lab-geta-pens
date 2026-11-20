@@ -4,12 +4,32 @@
 @section('content')
 
 @php
+    // Membaca data penelitian
     $data = json_decode($penelitian->isi, true);
 
-    if (is_string($data)) {
+    // Jika JSON tersimpan lebih dari satu kali
+    for ($i = 0; $i < 3 && is_string($data); $i++) {
         $data = json_decode($data, true);
     }
 
+    // Memeriksa kemungkinan data gambar tersimpan
+    // di dalam isi_penelitian
+    if (
+        is_array($data) &&
+        isset($data['isi_penelitian']) &&
+        is_string($data['isi_penelitian'])
+    ) {
+        $dataDalam = json_decode($data['isi_penelitian'], true);
+
+        if (
+            is_array($dataDalam) &&
+            isset($dataDalam['gambar'])
+        ) {
+            $data = $dataDalam;
+        }
+    }
+
+    // Format untuk data lama
     if (!is_array($data) || !isset($data['isi_penelitian'])) {
         $data = [
             'isi_penelitian' => $penelitian->isi,
@@ -21,6 +41,15 @@
     $gambar = $data['gambar'] ?? [];
     $deskripsi = $data['deskripsi_foto'] ?? [];
 
+    if (!is_array($gambar)) {
+        $gambar = [];
+    }
+
+    if (!is_array($deskripsi)) {
+        $deskripsi = [];
+    }
+
+    // Cadangan foto utama untuk data lama
     if (empty($gambar) && $penelitian->image) {
         $gambar = [$penelitian->image];
     }
@@ -89,10 +118,11 @@
 
 <div class="research-detail">
 
+    {{-- Judul penelitian --}}
     <h2>{{ $penelitian->judul }}</h2>
 
     {{-- Foto utama --}}
-    @if (isset($gambar[0]))
+    @if (!empty($gambar[0]))
         <div class="main-image">
             <img
                 src="{{ asset('storage/' . $gambar[0]) }}"
@@ -106,10 +136,11 @@
         {!! nl2br(e($data['isi_penelitian'] ?? '')) !!}
     </div>
 
-        {{-- Foto lainnya --}}
+    {{-- Empat foto tambahan dan deskripsinya --}}
     @foreach ($gambar as $index => $foto)
         @if ($index > 0)
             <div class="other-image">
+
                 <img
                     src="{{ asset('storage/' . $foto) }}"
                     alt="Gambar penelitian {{ $index + 1 }}"
@@ -118,13 +149,18 @@
                 <div class="image-description">
                     {{ $deskripsi[$index - 1] ?? '' }}
                 </div>
+
             </div>
         @endif
     @endforeach
 
+    {{-- Informasi penelitian --}}
     <div class="research-meta">
         <div>{{ $penelitian->tanggal }}</div>
-        <div>{!! nl2br(e($penelitian->peneliti)) !!}</div>
+
+        <div>
+            {!! nl2br(e($penelitian->peneliti)) !!}
+        </div>
     </div>
 
 </div>
