@@ -10,5 +10,7 @@
         <a href="{{ route('berita.show', $item->id) }}">
             {{ $item->title }}
         </a>
-    </p>
+    </p> 
+    
+    <h1>nyoba uy</h1>
 @endforeach
