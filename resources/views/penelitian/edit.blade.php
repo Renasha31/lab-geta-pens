@@ -19,12 +19,11 @@
     }
 
     $gambar = $data['gambar'] ?? [];
+    $deskripsi = $data['deskripsi_foto'] ?? [];
 
     if (empty($gambar) && $penelitian->image) {
         $gambar = [$penelitian->image];
     }
-
-    $deskripsi = $data['deskripsi_foto'] ?? [];
 @endphp
 
 <style>
@@ -56,21 +55,35 @@
     <div class="card mt-3">
 
         <form action="{{ route('penelitian.update', $penelitian->id) }}"
-            method="post" enctype="multipart/form-data">
+            method="POST" enctype="multipart/form-data">
 
             @csrf
             @method('PUT')
 
+            {{-- Pesan error validasi --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Gagal menyimpan:</strong>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            {{-- Judul --}}
             <label>Judul Penelitian</label>
             <input type="text" name="judul"
-                value="{{ $penelitian->judul }}"
+                value="{{ old('judul', $penelitian->judul) }}"
                 required class="form-control mb-3">
 
+            {{-- Isi --}}
             <label>Isi Penelitian</label>
             <textarea name="isi" rows="5" required
-                class="form-control mb-3">{{ $data['isi_penelitian'] ?? '' }}</textarea>
+                class="form-control mb-3">{{ old('isi', $data['isi_penelitian'] ?? '') }}</textarea>
 
-            {{-- FOTO UTAMA --}}
+            {{-- Foto utama --}}
             <label>Foto Utama</label>
 
             @if (isset($gambar[0]))
@@ -78,20 +91,19 @@
                     class="preview-image" alt="Foto utama">
             @endif
 
-            <input type="hidden" name="gambar_lama[0]"
-                value="{{ $gambar[0] ?? '' }}">
-
             <input type="file" name="image[0]"
                 accept="image/*" class="form-control mb-3">
 
+            {{-- Tanggal --}}
             <label>Tanggal</label>
             <input type="date" name="tanggal"
-                value="{{ $penelitian->tanggal }}"
+                value="{{ old('tanggal', $penelitian->tanggal) }}"
                 required class="form-control mb-3">
 
+            {{-- Anggota peneliti --}}
             <label>Anggota Peneliti</label>
             <input type="text" name="peneliti"
-                value="{{ $penelitian->peneliti }}"
+                value="{{ old('peneliti', $penelitian->peneliti) }}"
                 required class="form-control mb-3">
 
             <hr>
@@ -108,10 +120,6 @@
                         alt="Gambar {{ $i + 1 }}">
                 @endif
 
-                <input type="hidden"
-                    name="gambar_lama[{{ $i }}]"
-                    value="{{ $gambar[$i] ?? '' }}">
-
                 <input type="file"
                     name="image[{{ $i }}]"
                     accept="image/*"
@@ -121,7 +129,7 @@
 
                 <textarea name="deskripsi_foto[]"
                     class="form-control mb-3"
-                    placeholder="Deskripsi gambar {{ $i }}">{{ $deskripsi[$i - 1] ?? '' }}</textarea>
+                    placeholder="Deskripsi gambar {{ $i }}">{{ old('deskripsi_foto.' . ($i - 1), $deskripsi[$i - 1] ?? '') }}</textarea>
 
             @endfor
 
@@ -137,6 +145,7 @@
             </div>
 
         </form>
+
     </div>
 </div>
 
