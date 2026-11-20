@@ -10,7 +10,7 @@
             @forelse ($berita as $b)
                 <p>
                     <li style="font-size: 150%">
-                        <a href="{{ route('berita.show', $b->id) }}" style="text-decoration: none"> {{ $b->title }} </a>
+                        <a href="{{ route('berita.show', $b->id) }}" style="text-decoration: none; color: black;"> {{ $b->title }} </a>
                     </li>
                 </p>
             @empty
