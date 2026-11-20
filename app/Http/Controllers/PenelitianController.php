@@ -13,7 +13,7 @@ class PenelitianController extends Controller
 
     public function depanp()
     {
-        $penelitian = Penelitian::latest()->get();
+        $penelitian = Penelitian::latest()->paginate(3);
         return view('penelitian.depanp', compact('penelitian'));
     }
     public function index()

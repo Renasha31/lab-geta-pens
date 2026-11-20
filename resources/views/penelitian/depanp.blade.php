@@ -1,28 +1,217 @@
 @extends('layout.app')
 @section('page-title', 'Penelitian')
 @section('content')
-    <h3 class="mt-4">
-        Berdasarkan teknologi elektronika daya, kami melakukan penelitian berikut
-        dengan tujuan mengembangkan peralatan yang sangat efisien dan ramah lingkungan:
-    </h3>
 
-    <div class="container mt-5 card" style="border: 1px solid #ccc; border-radius: 7px; padding: 15px;">
-        <h3>Daftar Penelitian</h3>
-        <hr>
+<style>
+    .penelitian-section {
+        padding: 35px 0 50px;
+    }
 
-        <div>
-            @forelse ($penelitian as $p)
-                <div class="card mb-3" style="border: 1px solid #ccc; border-radius: 10px;">
-                    <div class="card-body">
-                        <a href="{{ route('penelitian.show', $p->id) }}" class="text-decoration-none text-dark">
-                            <h5 class="mb-0">{{ $p->judul }}</h5>
-                        </a>
-                    </div>
-                </div>
-            @empty
-                <p>belum ada penelitian</p>
-            @endforelse
-        </div>
+    .penelitian-intro {
+        background: linear-gradient(135deg, #28658f, #438fc1);
+        border-radius: 14px;
+        padding: 35px;
+        color: white;
+        margin-bottom: 35px;
+    }
+
+    .penelitian-intro h3 {
+        font-size: 23px;
+        font-weight: 600;
+        line-height: 1.6;
+        margin: 0;
+        max-width: 850px;
+    }
+
+    .penelitian-intro p {
+        font-size: 14px;
+        margin: 12px 0 0;
+        color: #e5f2fa;
+    }
+
+    .penelitian-container {
+        background: #fff;
+        border: 1px solid #e2eaf0;
+        border-radius: 14px;
+        padding: 28px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .penelitian-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+
+    .penelitian-icon {
+        width: 43px;
+        height: 43px;
+        background: #e8f2f8;
+        color: #337fb2;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+    .penelitian-heading h4 {
+        color: #28658f;
+        font-weight: 700;
+        margin: 0;
+        font-size: 21px;
+    }
+
+    .penelitian-heading p {
+        color: #888;
+        font-size: 13px;
+        margin: 3px 0 0;
+    }
+
+    .penelitian-card {
+        border: 1px solid #e2eaf0;
+        border-radius: 10px;
+        margin-bottom: 13px;
+        transition: all .25s ease;
+        overflow: hidden;
+    }
+
+    .penelitian-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .penelitian-card:hover {
+        border-color: #80b4d6;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(51, 127, 178, 0.10);
+    }
+
+    .penelitian-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 19px 21px;
+        text-decoration: none;
+        color: #304b60;
+    }
+
+    .penelitian-link h5 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .penelitian-arrow {
+        color: #337fb2;
+        font-size: 19px;
+        transition: transform .25s ease;
+        flex-shrink: 0;
+    }
+
+    .penelitian-card:hover .penelitian-arrow {
+        transform: translateX(5px);
+    }
+
+    .penelitian-empty {
+        text-align: center;
+        padding: 45px 20px;
+        background: #f6f9fc;
+        border-radius: 10px;
+        border: 1px dashed #b9d2e3;
+    }
+
+    .penelitian-empty i {
+        font-size: 38px;
+        color: #70a5c9;
+    }
+
+    .penelitian-empty h5 {
+        color: #28658f;
+        font-weight: 600;
+        margin-top: 12px;
+    }
+
+    .penelitian-empty p {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 576px) {
+        .penelitian-intro {
+            padding: 25px 20px;
+        }
+
+        .penelitian-intro h3 {
+            font-size: 19px;
+        }
+
+        .penelitian-container {
+            padding: 20px 15px;
+        }
+
+        .penelitian-link {
+            padding: 16px;
+        }
+
+        .penelitian-link h5 {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="container penelitian-section">
+
+    <div class="penelitian-intro">
+        <h3>
+            Berdasarkan teknologi elektronika daya, kami melakukan berbagai
+            penelitian untuk mengembangkan peralatan yang efisien dan ramah lingkungan.
+        </h3>
+        <p>
+            Eksplorasi inovasi dan pengembangan teknologi untuk masa depan.
+        </p>
     </div>
+
+    <div class="penelitian-container">
+
+        <div class="penelitian-heading">
+            <div class="penelitian-icon">
+                <i class="bi bi-journal-text"></i>
+            </div>
+            <div>
+                <h4>Daftar Penelitian</h4>
+                <p>Kumpulan penelitian yang telah dilakukan</p>
+            </div>
+        </div>
+
+        @forelse ($penelitian as $p)
+            <div class="penelitian-card">
+                <a href="{{ route('penelitian.show', $p->id) }}"
+                    class="penelitian-link">
+
+                    <h5>{{ $p->judul }}</h5>
+
+                    <i class="bi bi-arrow-right-circle penelitian-arrow"></i>
+                </a>
+            </div>
+        @empty
+            <div class="penelitian-empty">
+                <i class="bi bi-journal-x"></i>
+                <h5>Belum Ada Penelitian</h5>
+                <p>Data penelitian belum tersedia saat ini.</p>
+            </div>
+        @endforelse
+
+        @if ($penelitian->hasPages())
+            <div class="d-flex justify-content-center mt-4">
+                {{ $penelitian->links() }}
+            </div>
+        @endif
+
+    </div>
+</div>
 
 @endsection
