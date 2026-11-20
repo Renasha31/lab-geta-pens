@@ -7,7 +7,7 @@
 
 @foreach ($berita as $item)
     <p>
-        <a href="{{ route('berita.show', $item->id) }}" style="color: black; text-decoration: none">
+        <a href="{{ route('berita.show', $item->id) }}" style="text-decoration: none; color: #3b4340;">
             {{ $item->title }}
         </a>
     </p>

@@ -2,25 +2,25 @@
 @section('page-title', 'Info_GetaLab')
 @section('content')
 
-    <h2 class="mb-3" style="color: red">Perekrutan mahasiswa telah ditangguhkan.</h2>
-    <hr style="border-top: 3px solid #5b5bb4; opacity: 1;">
+    <p class="mt-5" style="color: red; font-size: 27px;">Perekrutan mahasiswa telah ditangguhkan.</p>
+    <hr style="border-top: 3px solid #5b5bb4; opacity: 1;" class="mt-5">
 
-    <h2>Informasi laboratorium <strong style="color: red">(per April 2026)</strong></h2>
+    <h2 style="font-size: 27px;" class="mt-1">Informasi laboratorium <strong style="color: red">(per April 2026)</strong></h2>
     <hr style="color: #040453;">
 
-    <h3 style="white-space: pre-line; color: blue;">Afiliasi: Departemen Bioteknologi, Sekolah Pascasarjana Bioteknologi dan
-        Rekayasa Sistem</h3>
+    <h4 style="color: #0e7cdd;" class="mt-5 mb-4">Afiliasi: Departemen Bioteknologi, Sekolah Pascasarjana Bioteknologi dan
+        Rekayasa Sistem</h4>
     <hr style="border-top: 3px solid #5b5bb4; opacity: 1;">
 
-    <h2 style="color: red"><strong>Personel laboratorium</strong></h2>
+    <h3 style="color: red;" class="mb-4"><strong>Personel laboratorium</strong></h3>
     <hr style="color: red">
 
-    <h5 style="white-space: pre-line">Jumlah peserta: M2:5, D3:1 (1 orang dewasa yang bekerja)
-        Latar belakang: Institut Teknologi Kyushu, Departemen Teknik Elektro dan Elektronika; universitas lain; kursus
-        lanjutan perguruan tinggi teknik lainnya; orang dewasa yang bekerja</h5>
+    <p style="white-space: pre-line" class="mt-4">Jumlah peserta: M2:5, D3:1 (1 orang dewasa yang bekerja)
+        Latar belakang: Institut Teknologi Kyushu, Departemen Teknik Elektro dan Elektronika; universitas lain; kursus lanjutan
+        perguruan tinggi teknik lainnya; orang dewasa yang bekerja</p>
     <hr style="border-top: 3px solid #5b5bb4; opacity: 1;">
 
-    <h2 style="color: red">Situasi pekerjaan <strong>(Gelar Magister)</strong></h2>
+    <h2 style="color: red; font-size: 27px;" class="mb-4"><strong>Situasi pekerjaan (Gelar Magister)</strong></h2>
     <hr style="color: red">
 
     <h5 style="white-space: pre-line; line-height: 1,5;">2013　TOTO, Honda Motor Co., Ltd.,<strong>Toyota Motor Kyushu,
