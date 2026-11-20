@@ -47,7 +47,7 @@
                         <th>Nama Anggota</th>
                         <th>Jenis Anggota</th>
                         <th>Tempat Tanggal Lahir</th>
-                        <th>RPDK</th>
+                        <th>Riwayat Pendidikan Dan Karir</th>
                         <th>Aksi</th>
                     </tr>
 
