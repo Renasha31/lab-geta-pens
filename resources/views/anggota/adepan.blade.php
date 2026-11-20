@@ -87,11 +87,11 @@
 
                         </div>
                     @endif
+                    <p id="kosong" style="display:none;">
+                        Anggota tidak ditemukan.
+                    </p>
                 @endforeach
 
-                <p id="kosong" style="display:none;">
-                    Anggota tidak ditemukan.
-                </p>
 
             </div>
 
