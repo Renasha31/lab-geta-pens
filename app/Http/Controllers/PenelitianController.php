@@ -50,7 +50,7 @@ class PenelitianController extends Controller
             'tanggal' => 'required|date',
             'peneliti' => 'required',
             'image' => 'required|array|max:5',
-            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:10240',
             'deskripsi_foto' => 'required|array|max:5',
             'deskripsi_foto.*' => 'required|string',
         ]);
@@ -116,7 +116,7 @@ class PenelitianController extends Controller
         'tanggal' => 'required|date',
         'peneliti' => 'required',
         'image' => 'nullable|array|max:5',
-        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
         'gambar_lama' => 'nullable|array',
         'deskripsi_foto' => 'nullable|array|max:4',
         'deskripsi_foto.*' => 'nullable|string',
