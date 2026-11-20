@@ -110,13 +110,44 @@ class PenelitianController extends Controller
     {
         $penelitian = Penelitian::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('images', 'public');
-            $penelitian->image = $image;
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'tanggal' => 'required|date',
+            'peneliti' => 'required',
+            'image' => 'required|array|max:5',
+            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar_lama' => 'required|array',
+            'deskripsi_foto' => 'required|array|max:4',
+            'deskripsi_foto.*' => 'required|string',
+        ]);
+
+        $dataLama = json_decode($penelitian->isi, true);
+
+        if (is_string($dataLama)) {
+            $dataLama = json_decode($dataLama, true);
         }
 
+        $gambar = $request->gambar_lama;
+
+        foreach ($request->file('image', []) as $index => $foto) {
+            if ($foto) {
+                $gambar[$index] = $foto->store('images', 'public');
+            }
+        }
+
+        ksort($gambar);
+        $gambar = array_values($gambar);
+
+        $isi = [
+            'isi_penelitan' => $request->isi,
+            'gambar' => $gambar,
+            'deskripsi_foto' =>array_values($request->deskripsi_foto ?? [])
+        ];
+
         $penelitian->judul = $request->judul;
-        $penelitian->isi = $request->isi;
+        $penelitian->isi = json_encode($isi);
+        $penelitian->image = $gambar[0] ?? $penelitian->image;
         $penelitian->tanggal = $request->tanggal;
         $penelitian->peneliti = $request->peneliti;
         $penelitian->save();
