@@ -13,7 +13,7 @@
                         <a href="{{ route('berita.show', $b->id) }}" style="text-decoration: none"> {{ $b->title }} </a>
                     </li>
                 </p>
-            @emptyz
+            @empty
                 <p>belum ada berita</p>
             @endforelse
         </ol>
