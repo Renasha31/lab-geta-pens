@@ -6,19 +6,23 @@
         dengan tujuan mengembangkan peralatan yang sangat efisien dan ramah lingkungan:
     </h3>
 
-    <div class="container mt-5">
+    <div class="container mt-5 card" style="border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
         <h3>Daftar Penelitian</h3>
-        <ol>
+        <hr>
+
+        <div>
             @forelse ($penelitian as $p)
-                <p>
-                    <li style="font-size: 150%">
-                        <a href="{{ route('penelitian.show', $p->id) }}"> {{ $p->judul }} </a>
-                    </li>
-                </p>
+                <div class="card mb-3" style="border: 1px solid #ccc; border-radius: 10px;">
+                    <div class="card-body">
+                        <a href="{{ route('penelitian.show', $p->id) }}" class="text-decoration-none text-dark">
+                            <h5 class="mb-0">{{ $p->judul }}</h5>
+                        </a>
+                    </div>
+                </div>
             @empty
-                <h5>Belum ada penelitian.</h5>
+                <p>belum ada penelitian</p>
             @endforelse
-        </ol>
+        </div>
     </div>
 
 @endsection
