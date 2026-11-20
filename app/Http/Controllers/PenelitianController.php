@@ -50,7 +50,7 @@ class PenelitianController extends Controller
             'tanggal' => 'required|date',
             'peneliti' => 'required',
             'image' => 'required|array|max:5',
-            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
             'deskripsi_foto' => 'required|array|max:5',
             'deskripsi_foto.*' => 'required|string',
         ]);
@@ -116,7 +116,7 @@ class PenelitianController extends Controller
         'tanggal' => 'required|date',
         'peneliti' => 'required',
         'image' => 'nullable|array|max:5',
-        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         'gambar_lama' => 'nullable|array',
         'deskripsi_foto' => 'nullable|array|max:4',
         'deskripsi_foto.*' => 'nullable|string',
@@ -131,14 +131,12 @@ class PenelitianController extends Controller
     $gambar = $dataLama['gambar'] ?? [$penelitian->image];
     $deskripsi = $dataLama['deskripsi_foto'] ?? [];
 
-    // Mengganti foto lama hanya jika ada foto baru
     foreach ($request->file('image', []) as $index => $foto) {
         if ($foto) {
             $gambar[$index] = $foto->store('images', 'public');
         }
     }
 
-    // Mengambil deskripsi baru jika dikirim
     if ($request->has('deskripsi_foto')) {
         $deskripsi = $request->deskripsi_foto;
     }
