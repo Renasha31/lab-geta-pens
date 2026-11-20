@@ -6,7 +6,7 @@
         dengan tujuan mengembangkan peralatan yang sangat efisien dan ramah lingkungan:
     </h3>
 
-    <div class="container mt-5 card" style="border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+    <div class="container mt-5 card" style="border: 1px solid #ccc; border-radius: 7px; padding: 15px;">
         <h3>Daftar Penelitian</h3>
         <hr>
 
