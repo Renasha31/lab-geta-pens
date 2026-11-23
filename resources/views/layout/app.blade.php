@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,79 +11,86 @@
     <title>@yield('title', 'GETA Laboratorium')</title>
 
     <style>
-    .research-detail {
-    font-family: sans-serif;
-    scrollbar-gutter: stable;
-}
-
-    .navbar {
-        position: sticky;
-        top: 0;
-        z-index: 1050;
-        background: white;
-        min-height: 90px;
-        padding: 10px 70px;
-        border-bottom: 1px solid #e5e5e5;
-        transition: all 0.4s ease;
-    }
-
-    .navbar .brand {
-        transition: box-shadow 0.4s ease;
-    }
-
-    .navbar.navbar-small {
-        min-height: 60px;
-        padding: 5px 70px !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    }
-
-    .navbar.navbar-small .brand {
-        display: none;
-    }
-
-    @media (min-width: 992px) {
-        .navbar.navbar-small .container-fluid {
-            display: block;
-            padding: 0;
+        .research-detail {
+            font-family: sans-serif;
+            scrollbar-gutter: stable;
         }
 
-        .navbar.navbar-small .navbar-collapse {
-            width: 100%;
-        }
-
-        .navbar.navbar-small .navbar-nav {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            margin: 0 !important;
-        }
-
-        .navbar.navbar-small .navbar-nav li {
-            flex: 1;
-            text-align: center;
-        }
-
-        .navbar.navbar-small .navbar-nav .nav-link {
-            padding: 18px 10px;
-            border-radius: 0 !important;
-        }
-    }
-
-    @media (max-width: 991px) {
         .navbar {
-            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            background: white;
+            min-height: 90px;
+            padding: 10px 70px;
+            border-bottom: 1px solid #e5e5e5;
+            transition: box-shadow 0.4s ease;
+        }
+
+        .navbar .brand {
+            transition: box-shadow 0.4s ease;
         }
 
         .navbar.navbar-small {
-            padding: 5px 20px !important;
+            min-height: 60px;
+            padding: 5px 70px !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
 
-        .navbar-nav .nav-link {
-            padding: 14px 10px;
-            border-bottom: 1px solid #ddd;
+        .navbar.navbar-small .brand {
+            display: none;
         }
-    }
-</style>
+
+        /* Hilangkan background hover hanya saat navbar mengecil */
+        .navbar.navbar-small .navbar-nav .nav-link:hover,
+        .navbar.navbar-small .navbar-nav .nav-link:active {
+            background-color: transparent !important;
+            color: #333 !important;
+        }
+
+        @media (min-width: 992px) {
+            .navbar.navbar-small .container-fluid {
+                display: block;
+                padding: 0;
+            }
+
+            .navbar.navbar-small .navbar-collapse {
+                width: 100%;
+            }
+
+            .navbar.navbar-small .navbar-nav {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                margin: 0 !important;
+            }
+
+            .navbar.navbar-small .navbar-nav li {
+                flex: 1;
+                text-align: center;
+            }
+
+            .navbar.navbar-small .navbar-nav .nav-link {
+                padding: 18px 10px;
+                border-radius: 0 !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar {
+                padding: 10px 20px;
+            }
+
+            .navbar.navbar-small {
+                padding: 5px 20px !important;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 14px 10px;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
 </head>
 
 <body class="research-detail">
@@ -233,19 +241,19 @@
 
     <script>
         const navbar = document.querySelector('.navbar');
-let navbarKecil = false;
+        let navbarKecil = false;
 
-window.addEventListener('scroll', function () {
-    const posisi = window.scrollY;
+        window.addEventListener('scroll', function () {
+            const posisi = window.scrollY;
 
-    if (!navbarKecil && posisi > 150) {
-        navbar.classList.add('navbar-small');
-        navbarKecil = true;
-    } else if (navbarKecil && posisi < 50) {
-        navbar.classList.remove('navbar-small');
-        navbarKecil = false;
-    }
-});
+            if (!navbarKecil && posisi > 150) {
+                navbar.classList.add('navbar-small');
+                navbarKecil = true;
+            } else if (navbarKecil && posisi < 50) {
+                navbar.classList.remove('navbar-small');
+                navbarKecil = false;
+            }
+        });
     </script>
 
 </body>
