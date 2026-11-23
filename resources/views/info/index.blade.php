@@ -23,7 +23,7 @@
     <h2 style="color: red; font-size: 27px;" class="mb-4"><strong>Situasi pekerjaan (Gelar Magister)</strong></h2>
     <hr style="color: red">
 
-    <h5 style="white-space: pre-line; line-height: 1,5;">2013　TOTO, Honda Motor Co., Ltd.,<strong>Toyota Motor Kyushu,
+    <p style="white-space: pre-line; line-height: 1,5;">2013　TOTO, Honda Motor Co., Ltd.,<strong>Toyota Motor Kyushu,
             Daikin Industries, Ltd.,</strong>
         Ube Machinery Corporation 2014　<strong>Mitsubishi Electric x2, Toshiba, Fuji Electric</strong>
         Corporation 2015　<strong>Toyota Motor Kyushu, Hitachi, Ltd., Yaskawa Electric Corporation, Panasonic Corporation,
@@ -45,5 +45,9 @@
         2024　<strong>Aisin, Nippon Steel, Lembaga Penelitian Jepang, Heili Marelli</strong>
 
         2025　<strong>NTT Data, Kubota</strong>
-        2026　<strong>Yaskawa Electric, Fuji Electric, Honda, Totec Amenity</strong></h5>
+        2026　<strong>Yaskawa Electric, Fuji Electric, Honda, Totec Amenity</strong></p>
+
+    <h5 style="color: red;" class="mt-5">Adegan eksperimental</h5>
+    
+    <img src="{{ asset('images/WhatsApp Image 2026-11-23 at 8.20.35 AM (1).jpeg') }}" style="height: 600px;" alt="">
 @endsection
