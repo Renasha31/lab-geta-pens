@@ -8,26 +8,88 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>@yield('title', 'GETA Laboratorium')</title>
-</head>
-<style>
+
+    <style>
     .research-detail {
         font-family: sans-serif;
     }
 
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1050;
+        background: white;
+        min-height: 90px;
+        padding: 10px 70px;
+        border-bottom: 1px solid #e5e5e5;
+        transition: all 0.4s ease;
+    }
+
+    .navbar .brand {
+        transition: all 0.3s ease;
+    }
+
+    .navbar.navbar-small {
+        min-height: 60px;
+        padding: 5px 70px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .navbar.navbar-small .brand {
+        display: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar.navbar-small .container-fluid {
+            display: block;
+            padding: 0;
+        }
+
+        .navbar.navbar-small .navbar-collapse {
+            width: 100%;
+        }
+
+        .navbar.navbar-small .navbar-nav {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin: 0 !important;
+        }
+
+        .navbar.navbar-small .navbar-nav li {
+            flex: 1;
+            text-align: center;
+        }
+
+        .navbar.navbar-small .navbar-nav .nav-link {
+            padding: 18px 10px;
+            border-radius: 0 !important;
+        }
+    }
+
     @media (max-width: 991px) {
+        .navbar {
+            padding: 10px 20px;
+        }
+
+        .navbar.navbar-small {
+            padding: 5px 20px !important;
+        }
+
         .navbar-nav .nav-link {
             padding: 14px 10px;
             border-bottom: 1px solid #ddd;
         }
     }
-
 </style>
+</head>
 
 <body class="research-detail">
-    <nav class="navbar navbar-expand-lg"
-        style="width: 100%; min-height: 90px; padding: 10px 70px; background-color: white; border-bottom: 1px solid #e5e5e5;">
+
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <div>
+
+            <div class="brand">
                 <a href="/" style="text-decoration: none">
                     <h2 style="font-size: 30px; font-weight: bold; color: #222; letter-spacing: 2px; margin: 0;"
                         class="mt-2">
@@ -36,93 +98,88 @@
                 </a>
                 <p style="font-size: 15px">Green Energy, Transportation, And Application Laboratory</p>
             </div>
-        </div>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-            aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+                aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="menu" style="font-size: 13px; color: #333 ;">
-            <ul class="navbar-nav ms-auto gap-lg-1 fw-bold">
-                <li>
-                    <a href="/akses" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                        onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                        onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                        onmousedown="this.style.backgroundColor='#4298d5';">
-                        {{ __('Access') }}
-                    </a>
-                </li>
+            <div class="collapse navbar-collapse" id="menu" style="font-size: 13px; color: #333;">
+                <ul class="navbar-nav ms-auto gap-lg-1 fw-bold">
 
-                @if (session()->has('key'))
                     <li>
-                        <a href="/penelitian" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                        <a href="/akses" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                             onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
                             onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Researches') }}
+                            {{ __('Access') }}
                         </a>
                     </li>
-                @else
-                    <li>
-                        <a href="/depanp" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                            onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Researches') }}
-                        </a>
-                    </li>
-                @endif
 
-                @if (session()->has('key'))
-                    <li>
-                        <a href="/anggota" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                            onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Member') }}
-                        </a>
-                    </li>
-                @else
-                    <li>
-                        <a href="/adepan" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                            onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Member') }}
-                        </a>
-                    </li>
-                @endif
+                    @if (session()->has('key'))
+                        <li>
+                            <a href="/penelitian" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                                {{ __('Researches') }}
+                            </a>
+                        </li>
+                    @else
+                        <li>
+                            <a href="/depanp" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                                {{ __('Researches') }}
+                            </a>
+                        </li>
+                    @endif
 
-                @if (session()->has('key'))
-                    <li>
-                        <a href="/berita" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                            onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Berita') }}
-                        </a>
-                    </li>
-                @else
-                    <li>
-                        <a href="/depanb" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                            onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Berita') }}
-                        </a>
-                    </li>
-                @endif
+                    @if (session()->has('key'))
+                        <li>
+                            <a href="/anggota" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                                {{ __('Member') }}
+                            </a>
+                        </li>
+                    @else
+                        <li>
+                            <a href="/adepan" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                                {{ __('Member') }}
+                            </a>
+                        </li>
+                    @endif
 
-                <li>
-                    <a href="/info" class="nav-link px-3 rounded-pill text-nowrap" style="transition: 0.2s;"
-                        onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
-                        onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                        onmousedown="this.style.backgroundColor='#4298d5';">
-                        {{ __('Lab Information') }}
-                    </a>
-                </li>
-            </ul>
+                    @if (session()->has('key'))
+                        <li>
+                            <a href="/berita" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                                {{ __('Berita') }}
+                            </a>
+                        </li>
+                    @else
+                        <li>
+                            <a href="/depanb" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
+                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                                {{ __('Berita') }}
+                            </a>
+                        </li>
+                    @endif
+
+                    <li>
+                        <a href="/info" class="nav-link px-3 rounded-pill text-nowrap" style="transition: 0.2s;"
+                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
+                            {{ __('Lab Information') }}
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -135,7 +192,7 @@
     <div style="padding: 5px 80px; border-bottom: 1px solid #eee; display: flex; gap: 5px; font-size: 12px;">
         <p style="margin: 0">
             <i class="bi bi-house-fill"></i>
-            <a href="/" style="color: darkgray;text-decoration: none">RUMAH /</a>
+            <a href="/" style="color: darkgray; text-decoration: none">RUMAH /</a>
         </p>
 
         <p style="margin: 0">
@@ -156,23 +213,35 @@
     <div class="container">
         @yield('top-content')
 
-    @if (request()->is('penelitian*', 'anggota*', 'berita', 'berita/*', 'login'))
-        @yield('content')
-    @else
+        @if (request()->is('penelitian*', 'anggota*', 'berita', 'berita/*', 'login'))
+            @yield('content')
+        @else
+            <div class="row">
+                <div class="col-lg-8">
+                    @yield('content')
+                </div>
 
-        <div class="row">
-            <div class="col-lg-8">
-                @yield('content')
+                <div class="col-lg-4 mt-3">
+                    @include('sidebar')
+                </div>
             </div>
-
-            <div class="col-lg-4 mt-3">
-                @include('sidebar')
-            </div>
-        </div>
-    @endif
+        @endif
     </div>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+    <script>
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                navbar.classList.add('navbar-small');
+            } else {
+                navbar.classList.remove('navbar-small');
+            }
+        });
+    </script>
+
 </body>
 
 </html>
