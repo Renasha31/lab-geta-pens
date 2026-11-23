@@ -11,8 +11,8 @@
     </p>
 
     <div class="maps-section">
-        <iframe src="https://maps.google.com/maps?q=Politeknik%20Elektronika%20Negeri%20Surabaya&output=embed" width="50%"
-            height="580" style="border: 0;" allowfullscreen="0" loading="lazy">
+        <iframe src="https://maps.google.com/maps?q=Politeknik%20Elektronika%20Negeri%20Surabaya&output=embed" width="80%"
+            height="580"; style="border: 0;" allowfullscreen="0" loading="lazy">
         </iframe>
     </div>
 
