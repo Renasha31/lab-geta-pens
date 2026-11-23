@@ -49,5 +49,5 @@
 
     <h5 style="color: red;" class="mt-5">Adegan eksperimental</h5>
     
-    <img src="{{ asset('images/WhatsApp Image 2026-11-23 at 8.20.35 AM (1).jpeg') }}" style="height: 600px;" alt="">
+    <img src="{{ asset('images/WhatsApp Image 2026-11-23 at 8.20.35 AM (1).jpeg') }}" style="width: 100%; height: auto; object-fit: contain; display: block;" alt="">
 @endsection
