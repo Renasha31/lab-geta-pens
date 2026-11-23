@@ -70,7 +70,7 @@
             align-items: center;
             gap: 5px;
             padding: 6px 11px;
-            background: #456b4d;
+            background: #1f85c0;
             color: white;
             text-decoration: none;
             font-size: 11px;
@@ -80,7 +80,7 @@
         }
 
         .btn-detail:hover {
-            background: #2f5037;
+            background: #1f85c0;
             color: white;
             transform: translateY(-2px);
         }
@@ -238,7 +238,6 @@
 
         @if (!$utama)
 
-            {{-- Jika belum ada data anggota --}}
             <div class="data-kosong">
                 <i class="bi bi-people"></i>
                 <h5>Belum Ada Data Anggota</h5>
@@ -247,7 +246,6 @@
         @else
             <div class="row g-4">
 
-                {{-- Anggota utama --}}
                 <div class="col-lg-5">
 
                     <div class="anggota-utama">
@@ -282,7 +280,6 @@
 
                 </div>
 
-                {{-- Anggota lainnya --}}
                 <div class="col-lg-7">
 
                     @if ($lainnya->isNotEmpty())
