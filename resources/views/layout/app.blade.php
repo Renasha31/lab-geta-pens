@@ -11,8 +11,9 @@
 
     <style>
     .research-detail {
-        font-family: sans-serif;
-    }
+    font-family: sans-serif;
+    scrollbar-gutter: stable;
+}
 
     .navbar {
         position: sticky;
@@ -26,7 +27,7 @@
     }
 
     .navbar .brand {
-        transition: all 0.3s ease;
+        transition: box-shadow 0.4s ease;
     }
 
     .navbar.navbar-small {
@@ -232,14 +233,19 @@
 
     <script>
         const navbar = document.querySelector('.navbar');
+let navbarKecil = false;
 
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                navbar.classList.add('navbar-small');
-            } else {
-                navbar.classList.remove('navbar-small');
-            }
-        });
+window.addEventListener('scroll', function () {
+    const posisi = window.scrollY;
+
+    if (!navbarKecil && posisi > 150) {
+        navbar.classList.add('navbar-small');
+        navbarKecil = true;
+    } else if (navbarKecil && posisi < 50) {
+        navbar.classList.remove('navbar-small');
+        navbarKecil = false;
+    }
+});
     </script>
 
 </body>
