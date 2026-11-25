@@ -6,10 +6,27 @@
     $daysInMonth = $today->daysInMonth;
 @endphp
 
+<style>
+    .sidebar-link {
+    color: #555 !important;
+    font-size: 16px;
+    line-height: 1.7;
+    text-decoration: none;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+    color: #555 !important;
+    text-decoration: underline;
+}
+</style>
+
 <div style="position: sticky; top: 20px;">
     <div style="margin-bottom: 45px;">
 
-        <h4 style="font-size: 23px; font-weight: 400; color: #343a40; margin-bottom: 10px;">Berita Terbaru</h4>
+        <h4 style="font-size: 23px; font-weight: 400; color: #343a40; margin-bottom: 10px;">
+            Berita Terbaru
+        </h4>
 
         <div style="border-bottom: 1px solid #ddd;">
             <div style="width: 30%; border-bottom: 1px solid #4285c5;"></div>
@@ -18,7 +35,7 @@
         @foreach ($berita as $item)
             <div style="padding: 12px 8px; border-bottom: 1px solid #eee;">
                 <a href="{{ route('berita.show', $item->id) }}"
-                    style="text-decoration: none; color: #555; font-size: 16px; line-height: 1.7;">
+                    class="sidebar-link {{ request()->routeIs('berita.show') && request()->route('berita') == $item->id ? 'active' : '' }}">
                     {{ $item->title }}
                 </a>
             </div>
@@ -57,15 +74,16 @@
                                     &nbsp;
                                 @else
                                     @if ($day == $today->day)
-                                    <span style="display: inline-block; padding: 5px 8px; background: #3b4340; color: white; border-radius: 50%; font-weight: bold;">
-                                        {{ $day }}
-                                    </span>
-                                @else
-                                     <span style="display: inline-block; padding: 5px 8px;">
-                                        {{ $day }}
-                                    </span>
-                                @endif
-                                    @php $day++; @endphp 
+                                        <span style="display: inline-block; padding: 5px 8px; background: #3b4340; color: white; border-radius: 50%; font-weight: bold;">
+                                            {{ $day }}
+                                        </span>
+                                    @else
+                                        <span style="display: inline-block; padding: 5px 8px;">
+                                            {{ $day }}
+                                        </span>
+                                    @endif
+
+                                    @php $day++; @endphp
                                 @endif
 
                             </td>
@@ -77,5 +95,4 @@
         </table>
 
     </div>
-
 </div>
