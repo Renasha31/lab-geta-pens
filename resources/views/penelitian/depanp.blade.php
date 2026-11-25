@@ -8,7 +8,7 @@
     }
 
     .penelitian-intro {
-        background: linear-gradient(135deg, #438f, #28658f);
+        background: linear-gradient(135deg, #367FB5, #0a579f);
         border-radius: 14px;
         padding: 35px;
         color: white;
