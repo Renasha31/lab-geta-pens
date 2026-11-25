@@ -8,7 +8,7 @@
     }
 
     .penelitian-intro {
-        background: linear-gradient(135deg, #28658f, #438fc1);
+        background: linear-gradient(135deg, #4A943E, #76C457);
         border-radius: 14px;
         padding: 35px;
         color: white;
@@ -48,7 +48,7 @@
         width: 43px;
         height: 43px;
         background: #e8f2f8;
-        color: #337fb2;
+        color: #76C457;
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -57,7 +57,7 @@
     }
 
     .penelitian-heading h4 {
-        color: #28658f;
+        color: #76C457;
         font-weight: 700;
         margin: 0;
         font-size: 21px;
@@ -82,7 +82,7 @@
     }
 
     .penelitian-card:hover {
-        border-color: #80b4d6;
+        border-color: #76C457;
         transform: translateY(-3px);
         box-shadow: 0 5px 15px rgba(51, 127, 178, 0.10);
     }
@@ -94,7 +94,7 @@
         gap: 15px;
         padding: 19px 21px;
         text-decoration: none;
-        color: #304b60;
+        color: #76C457;
     }
 
     .penelitian-link h5 {
@@ -105,7 +105,7 @@
     }
 
     .penelitian-arrow {
-        color: #337fb2;
+        color: #76C457;
         font-size: 19px;
         transition: transform .25s ease;
         flex-shrink: 0;
@@ -125,11 +125,11 @@
 
     .penelitian-empty i {
         font-size: 38px;
-        color: #70a5c9;
+        color: #76C457;
     }
 
     .penelitian-empty h5 {
-        color: #28658f;
+        color: #76C457;
         font-weight: 600;
         margin-top: 12px;
     }

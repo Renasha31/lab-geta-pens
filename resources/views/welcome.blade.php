@@ -61,7 +61,11 @@
 @section('content')
 
     <h2 class="mt-4">Selamat datang di Laboratorium Green Energy, Transpotation, And Application.</h2>
-    <hr>
+    
+        <div style="border-bottom: 1px solid #ddd;">
+            <div style="width: 30%; border-bottom: 1px solid #587529;"></div>
+        </div>
+
     <p>Kami melakukan konversi daya dan kontrol motor menggunakan elektronika daya.</p>
     <br>
     <p style="text-align: justify; line-height: 1.8;" class="mb-5">15 Juli 2026: Buletin Meisen No. 944
