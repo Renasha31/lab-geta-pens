@@ -97,14 +97,17 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
 
-            <div class="brand">
-                <a href="/" style="text-decoration: none">
-                    <h2 style="font-size: 30px; font-weight: bold; color: #222; letter-spacing: 2px; margin: 0;"
-                        class="mt-2">
-                        GETA LAB
-                    </h2>
-                </a>
-                <p style="font-size: 15px">Green Energy, Transportation, And Application Laboratory</p>
+            <div class="brand d-flex align-items-center">
+                <img src="{{asset('images/logo pens.png') }}" alt="" style="width: 75px; height: 75px; object-fit: contain;">
+                <div>
+                    <a href="/" style="text-decoration: none">
+                        <h2 style="font-size: 30px; font-weight: bold; color: #222; letter-spacing: 2px; margin: 0;"
+                            class="mt-2">
+                            GETA LAB
+                        </h2>
+                    </a>
+                    <p style="font-size: 14px">Green Energy, Transportation, And Application Laboratory</p>
+                </div>
             </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
