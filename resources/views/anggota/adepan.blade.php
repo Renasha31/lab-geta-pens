@@ -50,7 +50,7 @@
     .badge-anggota {
         display: inline-block;
         background: #EDF7E9;
-        color: #2F6B3C;
+        color: #438f;
         padding: 6px 13px;
         border-radius: 20px;
         font-size: 12px;
@@ -69,7 +69,7 @@
         align-items: center;
         gap: 5px;
         padding: 6px 11px;
-        background: #4A943E;
+        background: #28658f;
         color: white;
         text-decoration: none;
         font-size: 11px;
@@ -79,7 +79,7 @@
     }
 
     .btn-detail:hover {
-        background: #2F6B3C;
+        background: #28658f;
         color: white;
         transform: translateY(-2px);
     }
@@ -98,7 +98,7 @@
     }
 
     .search-box input:focus {
-        border-color: #4A943E;
+        border-color: #28658f;
         box-shadow: 0 0 0 3px rgba(74, 148, 62, 0.12);
     }
 
@@ -155,7 +155,7 @@
     }
 
     .anggota-info .jenis {
-        color: #4A943E;
+        color: #28658f;
         font-weight: 600;
     }
 
@@ -179,13 +179,13 @@
 
     .data-kosong i {
         font-size: 35px;
-        color: #4A943E;
+        color: #28658f;
         display: block;
         margin-bottom: 12px;
     }
 
     .data-kosong h5 {
-        color: #2F6B3C;
+        color: #27516d;
         font-weight: 700;
         font-size: 17px;
     }
