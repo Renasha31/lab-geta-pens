@@ -31,21 +31,29 @@
             transition: box-shadow 0.4s ease;
         }
 
+        .navbar .brand h2 {
+            color: #2F6B3C !important;
+        }
+
+        .navbar .brand p {
+            color: #68736c;
+        }
+
         .navbar.navbar-small {
             min-height: 60px;
             padding: 5px 70px !important;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 10px rgba(47, 107, 60, 0.10);
         }
 
         .navbar.navbar-small .brand {
             display: none;
         }
 
-        /* Hilangkan background hover hanya saat navbar mengecil */
+        /* Hilangkan background hover saat navbar mengecil */
         .navbar.navbar-small .navbar-nav .nav-link:hover,
         .navbar.navbar-small .navbar-nav .nav-link:active {
             background-color: transparent !important;
-            color: #333 !important;
+            color: #2F6B3C !important;
         }
 
         @media (min-width: 992px) {
@@ -87,7 +95,64 @@
 
             .navbar-nav .nav-link {
                 padding: 14px 10px;
-                border-bottom: 1px solid #ddd;
+                border-bottom: 1px solid #e4ece2;
+            }
+        }
+
+        .navbar-nav .nav-link {
+            transition: 0.2s;
+        }
+
+        .navbar-toggler {
+            border-color: #c8dcc4;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 3px rgba(74, 148, 62, 0.15);
+        }
+
+        .page-heading {
+            background: linear-gradient(135deg, #4A943E, #76C457);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            width: 100%;
+        }
+
+        .page-heading h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .breadcrumb-area {
+            padding: 5px 80px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 5px;
+            font-size: 12px;
+        }
+
+        .breadcrumb-area a {
+            color: #4A943E;
+            text-decoration: none;
+        }
+
+        .breadcrumb-area a:hover {
+            color: #2F6B3C;
+        }
+
+        @media (max-width: 576px) {
+            .breadcrumb-area {
+                padding: 8px 20px;
+            }
+
+            .page-heading {
+                padding: 20px;
+            }
+
+            .page-heading h2 {
+                font-size: 22px;
             }
         }
     </style>
@@ -100,12 +165,14 @@
 
             <div class="brand">
                 <a href="/" style="text-decoration: none">
-                    <h2 style="font-size: 30px; font-weight: bold; color: #222; letter-spacing: 2px; margin: 0;"
+                    <h2 style="font-size: 30px; font-weight: bold; letter-spacing: 2px; margin: 0;"
                         class="mt-2">
                         GETA LAB
                     </h2>
                 </a>
-                <p style="font-size: 15px">Green Energy, Transportation, And Application Laboratory</p>
+                <p style="font-size: 15px; margin-bottom: 0;">
+                    Green Energy, Transportation, And Application Laboratory
+                </p>
             </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
@@ -118,9 +185,9 @@
 
                     <li>
                         <a href="/akses" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                            onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
-                            onmousedown="this.style.backgroundColor='#4298d5';">
+                            onmousedown="this.style.backgroundColor='#4A943E'; this.style.color='white';">
                             {{ __('Access') }}
                         </a>
                     </li>
@@ -128,7 +195,7 @@
                     @if (session()->has('key'))
                         <li>
                             <a href="/penelitian" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                                 {{ __('Researches') }}
                             </a>
@@ -136,7 +203,7 @@
                     @else
                         <li>
                             <a href="/depanp" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                                 {{ __('Researches') }}
                             </a>
@@ -146,7 +213,7 @@
                     @if (session()->has('key'))
                         <li>
                             <a href="/anggota" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                                 {{ __('Member') }}
                             </a>
@@ -154,7 +221,7 @@
                     @else
                         <li>
                             <a href="/adepan" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                                 {{ __('Member') }}
                             </a>
@@ -164,7 +231,7 @@
                     @if (session()->has('key'))
                         <li>
                             <a href="/berita" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                                 {{ __('Berita') }}
                             </a>
@@ -172,7 +239,7 @@
                     @else
                         <li>
                             <a href="/depanb" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
-                                onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                                onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                                 {{ __('Berita') }}
                             </a>
@@ -181,7 +248,7 @@
 
                     <li>
                         <a href="/info" class="nav-link px-3 rounded-pill text-nowrap" style="transition: 0.2s;"
-                            onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
+                            onmouseover="this.style.backgroundColor='#EDF7E9'; this.style.color='#2F6B3C';"
                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
                             {{ __('Lab Information') }}
                         </a>
@@ -193,15 +260,15 @@
     </nav>
 
     @if (View::hasSection('page-title'))
-        <div style="background-color: #367fb5; color: white; text-align: center; padding: 25px; width: 100%;">
+        <div class="page-heading">
             <h2>@yield('page-title')</h2>
         </div>
     @endif
 
-    <div style="padding: 5px 80px; border-bottom: 1px solid #eee; display: flex; gap: 5px; font-size: 12px;">
+    <div class="breadcrumb-area">
         <p style="margin: 0">
-            <i class="bi bi-house-fill"></i>
-            <a href="/" style="color: darkgray; text-decoration: none">RUMAH /</a>
+            <i class="bi bi-house-fill" style="color: #4A943E;"></i>
+            <a href="/">RUMAH /</a>
         </p>
 
         <p style="margin: 0">
@@ -209,12 +276,12 @@
                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                     @csrf
                     <button type="submit"
-                        style="color: #222; text-decoration: none; background: none; border: none; padding: 0; cursor: pointer;">
+                        style="color: #2F6B3C; text-decoration: none; background: none; border: none; padding: 0; cursor: pointer;">
                         LOGOUT
                     </button>
                 </form>
             @else
-                <a href="{{ route('login') }}" style="color: #222; text-decoration: none;">LOGIN</a>
+                <a href="{{ route('login') }}" style="color: #2F6B3C;">LOGIN</a>
             @endif
         </p>
     </div>

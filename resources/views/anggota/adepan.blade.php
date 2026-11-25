@@ -1,376 +1,383 @@
+
 @extends('layout.app')
 @section('page-title', 'Anggota')
 @section('content')
 
-    <style>
-        .anggota-section {
-            padding: 20px 0 40px;
-        }
+<style>
+    .anggota-section {
+        padding: 20px 0 40px;
+    }
 
+    .judul-halaman {
+        font-size: 28px;
+        font-weight: 700;
+        color: #263b32;
+        margin-bottom: 5px;
+    }
+
+    .subjudul {
+        color: #858f89;
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    .anggota-utama {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+        border: 1px solid #e4ece2;
+        height: 100%;
+    }
+
+    .anggota-utama img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .utama-info {
+        padding: 22px;
+    }
+
+    .utama-info h4 {
+        font-weight: 700;
+        color: #263b32;
+        margin-bottom: 8px;
+    }
+
+    .badge-anggota {
+        display: inline-block;
+        background: #EDF7E9;
+        color: #2F6B3C;
+        padding: 6px 13px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .utama-info p {
+        color: #68736c;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .btn-detail {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 11px;
+        background: #4A943E;
+        color: white;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    .btn-detail:hover {
+        background: #2F6B3C;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .search-box {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .search-box input {
+        border: 1px solid #e2e8e3;
+        border-radius: 12px;
+        padding: 13px 16px;
+        font-size: 14px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .search-box input:focus {
+        border-color: #4A943E;
+        box-shadow: 0 0 0 3px rgba(74, 148, 62, 0.12);
+    }
+
+    .judul-list {
+        font-size: 18px;
+        font-weight: 700;
+        color: #263b32;
+        margin-bottom: 17px;
+    }
+
+    .anggota-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 15px;
+        background: #fff;
+        border: 1px solid #e4ece2;
+        border-radius: 13px;
+        margin-bottom: 14px;
+        transition: 0.25s ease;
+    }
+
+    .anggota-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(74, 148, 62, 0.10);
+        border-color: #c8dcc4;
+    }
+
+    .anggota-item img {
+        width: 105px;
+        height: 105px;
+        object-fit: cover;
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    .anggota-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .anggota-info h6 {
+        color: #263b32;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .anggota-info p {
+        color: #778078;
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 4px;
+    }
+
+    .anggota-info .jenis {
+        color: #4A943E;
+        font-weight: 600;
+    }
+
+    #kosong {
+        text-align: center;
+        padding: 25px;
+        color: #89958b;
+        background: #F8FBF6;
+        border-radius: 12px;
+        border: 1px dashed #c8dcc4;
+    }
+
+    .data-kosong {
+        text-align: center;
+        padding: 45px 20px;
+        background: #F8FBF6;
+        border: 1px dashed #c8dcc4;
+        border-radius: 14px;
+        color: #89958b;
+    }
+
+    .data-kosong i {
+        font-size: 35px;
+        color: #4A943E;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .data-kosong h5 {
+        color: #2F6B3C;
+        font-weight: 700;
+        font-size: 17px;
+    }
+
+    .data-kosong p {
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+
+    @media(max-width: 768px) {
         .judul-halaman {
-            font-size: 28px;
-            font-weight: 700;
-            color: #263b32;
-            margin-bottom: 5px;
-        }
-
-        .subjudul {
-            color: #858f89;
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-
-        /* Anggota utama */
-        .anggota-utama {
-            background: #fff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
-            border: 1px solid #edf0ed;
-            height: 100%;
+            font-size: 23px;
         }
 
         .anggota-utama img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .utama-info {
-            padding: 22px;
-        }
-
-        .utama-info h4 {
-            font-weight: 700;
-            color: #263b32;
-            margin-bottom: 8px;
-        }
-
-        .badge-anggota {
-            display: inline-block;
-            background: #e8f0e9;
-            color: #456b4d;
-            padding: 6px 13px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .utama-info p {
-            color: #68736c;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        /* Tombol detail */
-        .btn-detail {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 11px;
-            background: #1f85c0;
-            color: white;
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 600;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-
-        .btn-detail:hover {
-            background: #1f85c0;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Search */
-        .search-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .search-box input {
-            border: 1px solid #e2e8e3;
-            border-radius: 12px;
-            padding: 13px 16px;
-            font-size: 14px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
-        }
-
-        .search-box input:focus {
-            border-color: #66866a;
-            box-shadow: 0 0 0 3px rgba(102, 134, 106, 0.12);
-        }
-
-        .judul-list {
-            font-size: 18px;
-            font-weight: 700;
-            color: #263b32;
-            margin-bottom: 17px;
-        }
-
-        /* Card anggota lainnya */
-        .anggota-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 15px;
-            background: #fff;
-            border: 1px solid #edf0ed;
-            border-radius: 13px;
-            margin-bottom: 14px;
-            transition: 0.25s ease;
-        }
-
-        .anggota-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-            border-color: #d6e2d7;
+            height: 280px;
         }
 
         .anggota-item img {
-            width: 105px;
-            height: 105px;
-            object-fit: cover;
-            border-radius: 10px;
-            flex-shrink: 0;
+            width: 85px;
+            height: 85px;
         }
 
-        .anggota-info {
-            min-width: 0;
-            flex: 1;
+        .anggota-item {
+            gap: 12px;
+            padding: 12px;
         }
+    }
+</style>
 
-        .anggota-info h6 {
-            color: #263b32;
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
+<div class="container anggota-section">
 
-        .anggota-info p {
-            color: #778078;
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 4px;
-        }
+    <h2 class="judul-halaman">Daftar Anggota</h2>
 
-        .anggota-info .jenis {
-            color: #557b5b;
-            font-weight: 600;
-        }
+    <p class="subjudul">
+        Kenali anggota yang tergabung dalam tim penelitian kami.
+    </p>
 
-        #kosong {
-            text-align: center;
-            padding: 25px;
-            color: #89958b;
-            background: #fff;
-            border-radius: 12px;
-            border: 1px dashed #dce5dd;
-        }
+    @php
+        $utama = $anggota->firstWhere('jenis_anggota', 'Profesor') ?? $anggota->first();
 
-        /* Tampilan ketika belum ada data */
-        .data-kosong {
-            text-align: center;
-            padding: 45px 20px;
-            background: #fff;
-            border: 1px dashed #dce5dd;
-            border-radius: 14px;
-            color: #89958b;
-        }
+        $lainnya = $anggota->filter(function ($a) use ($utama) {
+            return !$utama || $a->id != $utama->id;
+        });
+    @endphp
 
-        .data-kosong i {
-            font-size: 35px;
-            color: #78927c;
-            display: block;
-            margin-bottom: 12px;
-        }
+    @if (!$utama)
 
-        .data-kosong h5 {
-            color: #456b4d;
-            font-weight: 700;
-            font-size: 17px;
-        }
+        <div class="data-kosong">
+            <i class="bi bi-people"></i>
+            <h5>Belum Ada Data Anggota</h5>
+            <p>Data anggota belum tersedia saat ini.</p>
+        </div>
 
-        .data-kosong p {
-            font-size: 13px;
-            margin-bottom: 0;
-        }
+    @else
 
-        @media(max-width: 768px) {
-            .judul-halaman {
-                font-size: 23px;
-            }
+        <div class="row g-4">
 
-            .anggota-utama img {
-                height: 280px;
-            }
+            <div class="col-lg-5">
+                <div class="anggota-utama">
 
-            .anggota-item img {
-                width: 85px;
-                height: 85px;
-            }
+                    <img src="{{ url('storage/' . $utama->image) }}" alt="Foto {{ $utama->nama_anggota }}">
 
-            .anggota-item {
-                gap: 12px;
-                padding: 12px;
-            }
-        }
-    </style>
+                    <div class="utama-info">
 
-    <div class="container anggota-section">
+                        <span class="badge-anggota">
+                            {{ $utama->jenis_anggota }}
+                        </span>
 
-        <h2 class="judul-halaman">Daftar Anggota</h2>
+                        <h4>{{ $utama->nama_anggota }}</h4>
 
-        <p class="subjudul">
-            Kenali anggota yang tergabung dalam tim penelitian kami.
-        </p>
+                        <p>{{ $utama->ttl }}</p>
 
-        @php
-            $utama = $anggota->firstWhere('jenis_anggota', 'Profesor') ?? $anggota->first();
+                        <hr style="border-color: #e4ece2;">
 
-            $lainnya = $anggota->filter(function ($a) use ($utama) {
-                return !$utama || $a->id != $utama->id;
-            });
-        @endphp
+                        <p style="white-space: pre-line;">
+                            {{ Str::limit($utama->rpdk, 150) }}
+                        </p>
 
-        @if (!$utama)
-
-            <div class="data-kosong">
-                <i class="bi bi-people"></i>
-                <h5>Belum Ada Data Anggota</h5>
-                <p>Data anggota belum tersedia saat ini.</p>
-            </div>
-        @else
-            <div class="row g-4">
-
-                <div class="col-lg-5">
-
-                    <div class="anggota-utama">
-
-                        <img src="{{ url('storage/' . $utama->image) }}" alt="Foto {{ $utama->nama_anggota }}">
-
-                        <div class="utama-info">
-
-                            <span class="badge-anggota">
-                                {{ $utama->jenis_anggota }}
-                            </span>
-
-                            <h4>{{ $utama->nama_anggota }}</h4>
-
-                            <p>{{ $utama->ttl }}</p>
-
-                            <hr style="border-color: #edf0ed;">
-
-                            <p style="white-space: pre-line;">
-                                {{ Str::limit($utama->rpdk, 150) }}
-                            </p>
-
-                            <div class="text-end mt-2">
-                                <a href="{{ route('anggota.show', $utama->id) }}" class="btn-detail">
-                                    Lihat Selengkapnya
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-
+                        <div class="text-end mt-2">
+                            <a href="{{ route('anggota.show', $utama->id) }}" class="btn-detail">
+                                Lihat Selengkapnya
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+
+                @if ($lainnya->isNotEmpty())
+
+                    <h5 class="judul-list">Anggota Lainnya</h5>
+
+                    <div class="search-box">
+                        <input type="text" id="cari" class="form-control"
+                            placeholder="Cari nama, jabatan, atau informasi anggota...">
                     </div>
 
-                </div>
+                    <div id="daftar-anggota">
 
-                <div class="col-lg-7">
+                        @foreach ($lainnya as $a)
 
-                    @if ($lainnya->isNotEmpty())
+                            <div class="anggota-item">
 
-                        <h5 class="judul-list">Anggota Lainnya</h5>
+                                <img src="{{ url('storage/' . $a->image) }}" alt="Foto {{ $a->nama_anggota }}">
 
-                        <div class="search-box">
-                            <input type="text" id="cari" class="form-control"
-                                placeholder="Cari nama, jabatan, atau informasi anggota...">
-                        </div>
+                                <div class="anggota-info">
 
-                        <div id="daftar-anggota">
+                                    <h6>{{ $a->nama_anggota }}</h6>
 
-                            @foreach ($lainnya as $a)
-                                <div class="anggota-item">
+                                    <p class="jenis">
+                                        {{ $a->jenis_anggota }}
+                                    </p>
 
-                                    <img src="{{ url('storage/' . $a->image) }}" alt="Foto {{ $a->nama_anggota }}">
+                                    <p>{{ $a->ttl }}</p>
 
-                                    <div class="anggota-info">
-                                        <h6>{{ $a->nama_anggota }}</h6>
-                                        <p class="jenis">
-                                            {{ $a->jenis_anggota }}
-                                        </p>
-                                        <p>{{ $a->ttl }}</p>
-                                        <p>
-                                            {{ Str::limit($a->rpdk, 80) }}
-                                        </p>
-                                        <div class="text-end mt-2">
-                                            <a href="{{ route('anggota.show', $a->id) }}" class="btn-detail">
-                                                Lihat Selengkapnya
-                                                <i class="bi bi-arrow-right"></i>
-                                            </a>
-                                        </div>
+                                    <p>
+                                        {{ Str::limit($a->rpdk, 80) }}
+                                    </p>
 
+                                    <div class="text-end mt-2">
+                                        <a href="{{ route('anggota.show', $a->id) }}" class="btn-detail">
+                                            Lihat Selengkapnya
+                                            <i class="bi bi-arrow-right"></i>
+                                        </a>
                                     </div>
+
                                 </div>
-                            @endforeach
-                        </div>
-                        <p id="kosong" style="display:none;">
-                            <i class="bi bi-person-x fs-4 d-block mb-2"></i>
-                            Anggota tidak ditemukan.
-                        </p>
-                    @else
-                        <div class="data-kosong">
-                            <i class="bi bi-people"></i>
-                            <h5>Belum Ada Anggota Lainnya</h5>
-                            <p>Anggota lainnya akan ditampilkan di sini.</p>
-                        </div>
+                            </div>
 
-                    @endif
+                        @endforeach
 
-                </div>
+                    </div>
+
+                    <p id="kosong" style="display:none;">
+                        <i class="bi bi-person-x fs-4 d-block mb-2"></i>
+                        Anggota tidak ditemukan.
+                    </p>
+
+                @else
+
+                    <div class="data-kosong">
+                        <i class="bi bi-people"></i>
+                        <h5>Belum Ada Anggota Lainnya</h5>
+                        <p>Anggota lainnya akan ditampilkan di sini.</p>
+                    </div>
+
+                @endif
 
             </div>
 
-        @endif
+        </div>
 
-    </div>
+    @endif
 
-    <script>
-        const inputCari = document.getElementById('cari');
+</div>
 
-        if (inputCari) {
-            inputCari.addEventListener('input', function() {
+<script>
+    const inputCari = document.getElementById('cari');
 
-                let cari = this.value.toLowerCase().trim();
-                let anggota = document.querySelectorAll('.anggota-item');
-                let jumlah = 0;
+    if (inputCari) {
+        inputCari.addEventListener('input', function() {
 
-                anggota.forEach(function(item) {
+            let cari = this.value.toLowerCase().trim();
+            let anggota = document.querySelectorAll('.anggota-item');
+            let jumlah = 0;
 
-                    let teks = item.innerText.toLowerCase();
+            anggota.forEach(function(item) {
 
-                    if (teks.includes(cari)) {
-                        item.style.display = 'flex';
-                        jumlah++;
-                    } else {
-                        item.style.display = 'none';
-                    }
+                let teks = item.innerText.toLowerCase();
 
-                });
-
-                const pesanKosong = document.getElementById('kosong');
-
-                if (pesanKosong) {
-                    pesanKosong.style.display =
-                        jumlah === 0 ? 'block' : 'none';
+                if (teks.includes(cari)) {
+                    item.style.display = 'flex';
+                    jumlah++;
+                } else {
+                    item.style.display = 'none';
                 }
 
             });
-        }
-    </script>
+
+            const pesanKosong = document.getElementById('kosong');
+
+            if (pesanKosong) {
+                pesanKosong.style.display =
+                    jumlah === 0 ? 'block' : 'none';
+            }
+
+        });
+    }
+</script>
 
 @endsection
