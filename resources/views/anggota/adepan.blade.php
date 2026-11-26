@@ -3,6 +3,38 @@
 @section('page-title', 'Anggota')
 @section('content')
 
+@php
+    $terjemahkan = function($teks, $key) {
+        if (app()->getLocale() != 'en' || empty($teks)) {
+            return $teks;
+        }
+
+        return \Illuminate\Support\Facades\Cache::remember(
+            $key,
+            now()->addDays(30),
+            function () use ($teks) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($teks);
+                } catch (\Throwable $e) {
+                    return $teks;
+                }
+            }
+        );
+    };
+
+    $judulHalaman = $terjemahkan('Daftar Anggota', 'anggota_judul_en');
+    $subjudul = $terjemahkan('Kenali anggota yang tergabung dalam tim penelitian kami.', 'anggota_subjudul_en');
+    $judulKosong = $terjemahkan('Belum Ada Data Anggota', 'anggota_kosong_en');
+    $pesanKosong = $terjemahkan('Data anggota belum tersedia saat ini.', 'anggota_pesan_kosong_en');
+    $judulLainnya = $terjemahkan('Anggota Lainnya', 'anggota_lainnya_en');
+    $placeholderCari = $terjemahkan('Cari nama, jabatan, atau informasi anggota...', 'anggota_cari_en');
+    $detail = $terjemahkan('Lihat Selengkapnya', 'anggota_detail_en');
+    $tidakDitemukan = $terjemahkan('Anggota tidak ditemukan.', 'anggota_tidak_ditemukan_en');
+    $kosongLainnya = $terjemahkan('Belum Ada Anggota Lainnya', 'anggota_kosong_lainnya_en');
+    $pesanLainnya = $terjemahkan('Anggota lainnya akan ditampilkan di sini.', 'anggota_pesan_lainnya_en');
+@endphp
+
 <style>
     .anggota-section {
         padding: 20px 0 40px;
@@ -218,10 +250,10 @@
 
 <div class="container anggota-section">
 
-    <h2 class="judul-halaman">Daftar Anggota</h2>
+    <h2 class="judul-halaman">{{ $judulHalaman }}</h2>
 
     <p class="subjudul">
-        Kenali anggota yang tergabung dalam tim penelitian kami.
+        {{ $subjudul }}
     </p>
 
     @php
@@ -236,11 +268,17 @@
 
         <div class="data-kosong">
             <i class="bi bi-people"></i>
-            <h5>Belum Ada Data Anggota</h5>
-            <p>Data anggota belum tersedia saat ini.</p>
+            <h5>{{ $judulKosong }}</h5>
+            <p>{{ $pesanKosong }}</p>
         </div>
 
     @else
+
+        @php
+            $jenisUtama = $terjemahkan($utama->jenis_anggota, 'anggota_jenis_' . $utama->id . '_' . $utama->updated_at->timestamp);
+            $ttlUtama = $terjemahkan($utama->ttl, 'anggota_ttl_' . $utama->id . '_' . $utama->updated_at->timestamp);
+            $rpdkUtama = $terjemahkan($utama->rpdk, 'anggota_rpdk_' . $utama->id . '_' . $utama->updated_at->timestamp);
+        @endphp
 
         <div class="row g-4">
 
@@ -252,22 +290,22 @@
                     <div class="utama-info">
 
                         <span class="badge-anggota">
-                            {{ $utama->jenis_anggota }}
+                            {{ $jenisUtama }}
                         </span>
 
                         <h4>{{ $utama->nama_anggota }}</h4>
 
-                        <p>{{ $utama->ttl }}</p>
+                        <p>{{ $ttlUtama }}</p>
 
                         <hr style="border-color: #e4ece2;">
 
                         <p style="white-space: pre-line;">
-                            {{ Str::limit($utama->rpdk, 150) }}
+                            {{ Str::limit($rpdkUtama, 150) }}
                         </p>
 
                         <div class="text-end mt-2">
                             <a href="{{ route('anggota.show', $utama->id) }}" class="btn-detail">
-                                Lihat Selengkapnya
+                                {{ $detail }}
                                 <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
@@ -280,16 +318,22 @@
 
                 @if ($lainnya->isNotEmpty())
 
-                    <h5 class="judul-list">Anggota Lainnya</h5>
+                    <h5 class="judul-list">{{ $judulLainnya }}</h5>
 
                     <div class="search-box">
                         <input type="text" id="cari" class="form-control"
-                            placeholder="Cari nama, jabatan, atau informasi anggota...">
+                            placeholder="{{ $placeholderCari }}">
                     </div>
 
                     <div id="daftar-anggota">
 
                         @foreach ($lainnya as $a)
+
+                            @php
+                                $jenis = $terjemahkan($a->jenis_anggota, 'anggota_jenis_' . $a->id . '_' . $a->updated_at->timestamp);
+                                $ttl = $terjemahkan($a->ttl, 'anggota_ttl_' . $a->id . '_' . $a->updated_at->timestamp);
+                                $rpdk = $terjemahkan($a->rpdk, 'anggota_rpdk_' . $a->id . '_' . $a->updated_at->timestamp);
+                            @endphp
 
                             <div class="anggota-item">
 
@@ -300,18 +344,18 @@
                                     <h6>{{ $a->nama_anggota }}</h6>
 
                                     <p class="jenis">
-                                        {{ $a->jenis_anggota }}
+                                        {{ $jenis }}
                                     </p>
 
-                                    <p>{{ $a->ttl }}</p>
+                                    <p>{{ $ttl }}</p>
 
                                     <p>
-                                        {{ Str::limit($a->rpdk, 80) }}
+                                        {{ Str::limit($rpdk, 80) }}
                                     </p>
 
                                     <div class="text-end mt-2">
                                         <a href="{{ route('anggota.show', $a->id) }}" class="btn-detail">
-                                            Lihat Selengkapnya
+                                            {{ $detail }}
                                             <i class="bi bi-arrow-right"></i>
                                         </a>
                                     </div>
@@ -325,15 +369,15 @@
 
                     <p id="kosong" style="display:none;">
                         <i class="bi bi-person-x fs-4 d-block mb-2"></i>
-                        Anggota tidak ditemukan.
+                        {{ $tidakDitemukan }}
                     </p>
 
                 @else
 
                     <div class="data-kosong">
                         <i class="bi bi-people"></i>
-                        <h5>Belum Ada Anggota Lainnya</h5>
-                        <p>Anggota lainnya akan ditampilkan di sini.</p>
+                        <h5>{{ $kosongLainnya }}</h5>
+                        <p>{{ $pesanLainnya }}</p>
                     </div>
 
                 @endif

@@ -1,66 +1,101 @@
+
 @extends('layout.app')
 @section('title', 'Detail Anggota')
 @section('content')
-    <style>
-        .research-detail h1 {
-            font-size: 40px;
-            font-weight: 400;
-            margin-bottom: 20px;
+
+@php
+    $terjemahkan = function($teks, $key) {
+        if (app()->getLocale() != 'en' || empty($teks)) {
+            return $teks;
         }
 
-        .research-detail p {
-            font-size: 15px;
-            margin-bottom: 25px;
-        }
+        return \Illuminate\Support\Facades\Cache::remember(
+            $key,
+            now()->addDays(30),
+            function () use ($teks) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($teks);
+                } catch (\Throwable $e) {
+                    return $teks;
+                }
+            }
+        );
+    };
 
-        .research-detail h5 {
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.8;
-            color: #333;
-            white-space: pre-line;
-        }
+    $judul = $terjemahkan('Detail Anggota', 'detail_anggota_judul_en');
+    $jenis = $terjemahkan($anggota->jenis_anggota, 'detail_anggota_jenis_' . $anggota->id . '_' . $anggota->updated_at->timestamp);
+    $ttl = $terjemahkan($anggota->ttl, 'detail_anggota_ttl_' . $anggota->id . '_' . $anggota->updated_at->timestamp);
+    $rpdk = $terjemahkan($anggota->rpdk, 'detail_anggota_rpdk_' . $anggota->id . '_' . $anggota->updated_at->timestamp);
+@endphp
 
-        .research-detail h2 {
-            font-size: 27px;
-            font-weight: 500;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
+<style>
+    .research-detail h1 {
+        font-size: 40px;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
 
-        .research-content {
-            font-size: 18px;
-            line-height: 1.9;
-            color: #444;
-            text-align: justify;
-        }
+    .research-detail p {
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
 
-        .research-meta {
-            margin-top: 25px;
-            font-size: 13px;
-            color: #777;
-            line-height: 1.8;
-        }
+    .research-detail h5 {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: #333;
+        white-space: pre-line;
+    }
 
-        .research-image {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+    .research-detail h2 {
+        font-size: 27px;
+        font-weight: 500;
+        line-height: 1.5;
+        margin-bottom: 25px;
+    }
 
-        .research-image img {
-            max-width: 100%;
-            height: 300px;
-            object-fit: contain;
-        }
-    </style>
+    .research-content {
+        font-size: 18px;
+        line-height: 1.9;
+        color: #444;
+        text-align: justify;
+    }
 
-    <div class="research-detail">
-        <h1>{{ $anggota->nama_anggota }}</h1>
-        <div class="research-image">
-            <img src="{{ url('storage/' . $anggota->image) }}" alt="">
-        </div>
-        <h1 class="text-center">{{ $anggota->jenis_anggota }}</h1>
-        <p>{{ $anggota->ttl }}</p>
-        <h5>{{ $anggota->rpdk }}</h5>
+    .research-meta {
+        margin-top: 25px;
+        font-size: 13px;
+        color: #777;
+        line-height: 1.8;
+    }
+
+    .research-image {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .research-image img {
+        max-width: 100%;
+        height: 300px;
+        object-fit: contain;
+    }
+</style>
+
+<div class="research-detail">
+
+    <h1>{{ $anggota->nama_anggota }}</h1>
+
+    <div class="research-image">
+        <img src="{{ url('storage/' . $anggota->image) }}" alt="">
     </div>
+
+    <h1 class="text-center">{{ $jenis }}</h1>
+
+    <p>{{ $ttl }}</p>
+
+    <h5>{{ $rpdk }}</h5>
+
+</div>
+
 @endsection
