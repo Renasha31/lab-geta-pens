@@ -206,9 +206,32 @@
         </div>
     </nav>
 
-    @if (View::hasSection('page-title'))
+    {{--  @if (View::hasSection('page-title'))
         <div style="background-color: #367fb5; color: white; text-align: center; padding: 25px; width: 100%;">
             <h2>@yield('page-title')</h2>
+        </div>
+    @endif  --}}
+
+    @if (View::hasSection('page-title'))
+        <div style="background-color: #367fb5; color: white; text-align: center; padding: 25px; width: 100%;">
+            <h2>
+                @if (app()->getLocale() == 'en')
+                    {{ \Illuminate\Support\Facades\Cache::remember(
+                        'page_title_' . request()->path(),
+                        now()->addDays(30),
+                        function () {
+                            try {
+                                $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                                return $translator->translate(View::yieldContent('page-title'));
+                            } catch (\Throwable $e) {
+                                return View::yieldContent('page-title');
+                            }
+                        }
+                    ) }}
+                @else
+                    @yield('page-title')
+                @endif
+            </h2>
         </div>
     @endif
 
