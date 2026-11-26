@@ -273,6 +273,15 @@
                     @include('sidebar')
                 </div>
             </div>
+            <footer style="background: #f8f8f8; border-top: 2px solid #2878c8; padding: 25px; text-align: center; color: #333; font-size: 12px; margin-top: 50px;">
+                <p style="margin-bottom: 15px;">
+                    Copyright © {{ date('Y') }} GETA LAB. All Rights Reserved.
+                </p>
+                <p style="margin-bottom: 0;">
+                    Powered by <a href="/" style="color: #2878c8; text-decoration: underline;">GETA LAB</a> | Laboratory Research & Development
+                </p>
+            </footer>
+
         @endif
     </div>
 
