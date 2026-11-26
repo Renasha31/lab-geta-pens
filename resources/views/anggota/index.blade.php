@@ -2,6 +2,27 @@
 @section('title', 'Members')
 @section('content')
 
+@php
+    $terjemahkan = function($teks, $key) {
+        if (app()->getLocale() != 'en' || empty($teks)) {
+            return $teks;
+        }
+
+        return \Illuminate\Support\Facades\Cache::remember(
+            $key,
+            now()->addDays(30),
+            function () use ($teks) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($teks);
+                } catch (\Throwable $e) {
+                    return $teks;
+                }
+            }
+        );
+    };
+@endphp
+
     <style>
         .card {
             border: none;
@@ -31,11 +52,11 @@
     <div class="mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h2>Data Anggota</h2>
-                <p class="text-muted">Kelola data anggota.</p>
+                <h2>{{ $terjemahkan('Data Anggota', 'crud_anggota_judul') }}</h2>
+                <p class="text-muted">{{ $terjemahkan('Kelola data anggota.', 'crud_anggota_subjudul') }}</p>
             </div>
             <a href="{{ route('anggota.create') }}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">
-                <i class="bi bi-plus-circle me-1"></i> Tambah Anggota
+                <i class="bi bi-plus-circle me-1"></i> {{ $terjemahkan('Tambah Anggota', 'crud_anggota_tambah') }}
             </a>
         </div>
 
@@ -43,38 +64,38 @@
             <div class="table-responsive">
                 <table class="table table-hover table-bordered mb-0 table table-bordered">
                     <tr>
-                        <th>No</th>
-                        <th>Nama Anggota</th>
-                        <th>Jenis Anggota</th>
-                        <th>Tempat Tanggal Lahir</th>
-                        <th>Riwayat Pendidikan Dan Karir</th>
-                        <th>Aksi</th>
+                        <th>{{ $terjemahkan('No', 'crud_no') }}</th>
+                        <th>{{ $terjemahkan('Nama Anggota', 'crud_nama_anggota') }}</th>
+                        <th>{{ $terjemahkan('Jenis Anggota', 'crud_jenis_anggota') }}</th>
+                        <th>{{ $terjemahkan('Tempat Tanggal Lahir', 'crud_ttl') }}</th>
+                        <th>{{ $terjemahkan('Riwayat Pendidikan Dan Karir', 'crud_rpdk') }}</th>
+                        <th>{{ $terjemahkan('Aksi', 'crud_aksi') }}</th>
                     </tr>
 
                     @forelse ($anggota as $index => $a)
                         <tr>
                             <td>{{ $anggota->firstItem() + $index }}</td>
                             <td>{{ $a->nama_anggota }}</td>
-                            <td>{{ $a->jenis_anggota }}</td>
-                            <td>{{ $a->ttl }}</td>
-                            <td>{{ $a->rpdk }}</td>
+                            <td>{{ $terjemahkan($a->jenis_anggota, 'anggota_jenis_' . $a->id . '_' . $a->updated_at->timestamp) }}</td>
+                            <td>{{ $terjemahkan($a->ttl, 'anggota_ttl_' . $a->id . '_' . $a->updated_at->timestamp) }}</td>
+                            <td>{{ $terjemahkan($a->rpdk, 'anggota_rpdk_' . $a->id . '_' . $a->updated_at->timestamp) }}</td>
                             <td>
                                 <div class="d-flex gap-1">
                                     <a href="{{ route('anggota.show', $a->id) }}"
-                                        class="btn btn-sm btn-outline-primary">Show</a>
+                                        class="btn btn-sm btn-outline-primary">{{ $terjemahkan('Show', 'crud_show') }}</a>
                                     <a href="{{ route('anggota.edit', $a->id) }}"
-                                        class="btn btn-sm btn-outline-warning">Edit</a>
+                                        class="btn btn-sm btn-outline-warning">{{ $terjemahkan('Edit', 'crud_edit') }}</a>
                                     <form action="{{ route('anggota.destroy', $a->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger">Hapus</button>
+                                        <button class="btn btn-sm btn-outline-danger">{{ $terjemahkan('Hapus', 'crud_hapus') }}</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">Belum ada data anggota.</td>
+                            <td colspan="6" class="text-center">{{ $terjemahkan('Belum ada data anggota.', 'crud_anggota_kosong') }}</td>
                         </tr>
                     @endforelse
                 </table>
@@ -87,3 +108,4 @@
     </div>
 
 @endsection
+
