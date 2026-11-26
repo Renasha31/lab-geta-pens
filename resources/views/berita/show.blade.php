@@ -1,4 +1,3 @@
-
 @php
     $judul = $berita->title;
     $konten = $berita->konten;
@@ -38,14 +37,14 @@
 @section('content')
 
     <style>
-        .research-detail {
+        .berita-detail {
             max-width: 1100px;
             margin: 20px auto;
             font-family: Arial, sans-serif;
             color: #333;
         }
 
-        .research-detail h2 {
+        .berita-detail h2 {
             font-size: 27px;
             font-weight: 500;
             line-height: 1.5;
@@ -59,7 +58,7 @@
 
         .research-image img {
             max-width: 100%;
-            height: 300px;
+            height: 400px;
             object-fit: contain;
         }
 
@@ -78,7 +77,7 @@
         }
     </style>
 
-    <div class="research-detail">
+    <div class="berita-detail">
         <h2>{{ $judul }}</h2>
 
         <div class="research-image">
