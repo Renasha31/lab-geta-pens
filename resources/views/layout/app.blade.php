@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -40,7 +41,6 @@
             display: none;
         }
 
-        /* Hilangkan background hover hanya saat navbar mengecil */
         .navbar.navbar-small .navbar-nav .nav-link:hover,
         .navbar.navbar-small .navbar-nav .nav-link:active {
             background-color: transparent !important;
@@ -104,7 +104,7 @@
                         GETA LAB
                     </h2>
                 </a>
-                <p style="font-size: 15px">Green Energy, Transportation, And Application Laboratory</p>
+                <p style="font-size: 15px">{{ __('messages.Tagline') }}</p>
             </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
@@ -120,7 +120,7 @@
                             onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';"
                             onmousedown="this.style.backgroundColor='#4298d5';">
-                            {{ __('Access') }}
+                            {{ __('messages.Access') }}
                         </a>
                     </li>
 
@@ -129,7 +129,7 @@
                             <a href="/penelitian" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                                 onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                                {{ __('Researches') }}
+                                {{ __('messages.Researches') }}
                             </a>
                         </li>
                     @else
@@ -137,7 +137,7 @@
                             <a href="/depanp" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                                 onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                                {{ __('Researches') }}
+                                {{ __('messages.Researches') }}
                             </a>
                         </li>
                     @endif
@@ -147,7 +147,7 @@
                             <a href="/anggota" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                                 onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                                {{ __('Member') }}
+                                {{ __('messages.Member') }}
                             </a>
                         </li>
                     @else
@@ -155,7 +155,7 @@
                             <a href="/adepan" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                                 onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                                {{ __('Member') }}
+                                {{ __('messages.Member') }}
                             </a>
                         </li>
                     @endif
@@ -165,7 +165,7 @@
                             <a href="/berita" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                                 onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                                {{ __('Berita') }}
+                                {{ __('messages.News') }}
                             </a>
                         </li>
                     @else
@@ -173,7 +173,7 @@
                             <a href="/depanb" class="nav-link px-3 rounded-pill" style="transition: 0.2s;"
                                 onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                                {{ __('Berita') }}
+                                {{ __('messages.News') }}
                             </a>
                         </li>
                     @endif
@@ -182,7 +182,22 @@
                         <a href="/info" class="nav-link px-3 rounded-pill text-nowrap" style="transition: 0.2s;"
                             onmouseover="this.style.backgroundColor='#6bb5e8'; this.style.color='#08345c';"
                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='#333';">
-                            {{ __('Lab Information') }}
+                            {{ __('messages.Lab Information') }}
+                        </a>
+                    </li>
+
+                    {{-- PILIHAN BAHASA --}}
+                    <li class="nav-item d-flex align-items-center justify-content-center gap-2 ms-lg-3 py-2 py-lg-0">
+                        <a href="{{ url('/language/id') }}"
+                            title="Bahasa Indonesia"
+                            style="font-size: 25px; text-decoration: none; opacity: {{ app()->getLocale() == 'id' ? '1' : '.45' }};">
+                            🇮🇩
+                        </a>
+
+                        <a href="{{ url('/language/en') }}"
+                            title="English"
+                            style="font-size: 25px; text-decoration: none; opacity: {{ app()->getLocale() == 'en' ? '1' : '.45' }};">
+                            🇬🇧
                         </a>
                     </li>
 
@@ -200,7 +215,7 @@
     <div style="padding: 5px 80px; border-bottom: 1px solid #eee; display: flex; gap: 5px; font-size: 12px;">
         <p style="margin: 0">
             <i class="bi bi-house-fill"></i>
-            <a href="/" style="color: darkgray; text-decoration: none">RUMAH /</a>
+            <a href="/" style="color: darkgray; text-decoration: none">{{ __('messages.Home') }} /</a>
         </p>
 
         <p style="margin: 0">
@@ -209,11 +224,13 @@
                     @csrf
                     <button type="submit"
                         style="color: #222; text-decoration: none; background: none; border: none; padding: 0; cursor: pointer;">
-                        LOGOUT
+                        {{ __('messages.Logout') }}
                     </button>
                 </form>
             @else
-                <a href="{{ route('login') }}" style="color: #222; text-decoration: none;">LOGIN</a>
+                <a href="{{ route('login') }}" style="color: #222; text-decoration: none;">
+                    {{ __('messages.Login') }}
+                </a>
             @endif
         </p>
     </div>
