@@ -22,7 +22,7 @@
 </style>
 
 <div style="position: sticky; top: 20px;">
-    <div style="margin-bottom: 45px;">
+    <div style="margin-bottom: 15px;">
 
         <h4 style="font-size: 23px; font-weight: 400; color: #343a40; margin-bottom: 10px;">
             Berita Terbaru
@@ -44,18 +44,19 @@
     </div>
 
     {{-- KALENDER --}}
+
     <div>
 
-        <h5 style="font-size: 20px; font-weight: 400; color: #495057; margin-bottom: 18px;">
+        <h5 style="font-size: 20px; font-weight: 400; color: #495057; margin-bottom: 15px;">
             {{ $today->translatedFormat('F Y') }}
         </h5>
 
-        <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+        <table style="width: 90%; max-width: 300px; margin: auto; border-collapse: collapse; table-layout: fixed;">
 
             <thead>
                 <tr>
                     @foreach (['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'] as $hari)
-                        <th style="background: #e5e5e5; border: 1px solid #ddd; padding: 9px 0; text-align: center; font-size: 13px; color: #343a40;">
+                        <th style="background: #e5e5e5; border: 1px solid #ddd; padding: 6px 0; text-align: center; font-size: 11px; color: #343a40;">
                             {{ $hari }}
                         </th>
                     @endforeach
@@ -68,17 +69,17 @@
                 @while ($day <= $daysInMonth)
                     <tr>
                         @for ($col = 1; $col <= 7; $col++)
-                            <td style="border: 1px solid #ddd; height: 42px; text-align: center; font-size: 14px; color: #495057;">
+                            <td style="border: 1px solid #ddd; height: 32px; text-align: center; font-size: 12px; color: #495057;">
 
                                 @if (($day == 1 && $col < $startDay) || $day > $daysInMonth)
                                     &nbsp;
                                 @else
                                     @if ($day == $today->day)
-                                        <span style="display: inline-block; padding: 5px 8px; background: #3b4340; color: white; border-radius: 50%; font-weight: bold;">
+                                        <span style="display: inline-block; padding: 3px 6px; background: #367FB5; color: white; border-radius: 50%; font-weight: bold;">
                                             {{ $day }}
                                         </span>
                                     @else
-                                        <span style="display: inline-block; padding: 5px 8px;">
+                                        <span style="display: inline-block; padding: 3px 6px;">
                                             {{ $day }}
                                         </span>
                                     @endif
@@ -95,4 +96,5 @@
         </table>
 
     </div>
+
 </div>
