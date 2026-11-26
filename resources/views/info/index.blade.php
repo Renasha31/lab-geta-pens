@@ -1,4 +1,3 @@
-```php
 @extends('layout.app')
 @section('page-title', 'Info_GetaLab')
 @section('content')
@@ -62,4 +61,4 @@ Latar belakang: Institut Teknologi Kyushu, Departemen Teknik Elektro dan Elektro
 
     <img src="{{ asset('images/WhatsApp Image 2026-11-23 at 8.20.35 AM (1).jpeg') }}" style="width: 100%; height: auto; object-fit: contain; display: block;" alt="">
 @endsection
-```
+

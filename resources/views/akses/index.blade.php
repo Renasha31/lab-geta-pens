@@ -1,4 +1,3 @@
-```php
 @extends('layout.app')
 @section('page-title', 'Akses')
 @section('content')
@@ -39,4 +38,4 @@
     </div>
 
 @endsection
-```
+

@@ -1,9 +1,27 @@
-
 @extends('layout.app')
 @section('title', 'Edit Data Penelitian')
 @section('content')
 
 @php
+    $terjemahkan = function($teks, $key) {
+        if (app()->getLocale() != 'en' || empty($teks)) {
+            return $teks;
+        }
+
+        return \Illuminate\Support\Facades\Cache::remember(
+            $key,
+            now()->addDays(30),
+            function () use ($teks) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($teks);
+                } catch (\Throwable $e) {
+                    return $teks;
+                }
+            }
+        );
+    };
+
     $data = json_decode($penelitian->isi, true);
 
     if (is_string($data)) {
@@ -50,7 +68,7 @@
 </style>
 
 <div class="container mt-4">
-    <h2>Edit Data Penelitian</h2>
+    <h2>{{ $terjemahkan('Edit Data Penelitian', 'crud_penelitian_edit') }}</h2>
 
     <div class="card mt-3">
 
@@ -60,10 +78,9 @@
             @csrf
             @method('PUT')
 
-            {{-- Pesan error validasi --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <strong>Gagal menyimpan:</strong>
+                    <strong>{{ $terjemahkan('Gagal menyimpan:', 'crud_gagal_simpan') }}</strong>
                     <ul class="mb-0">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -72,19 +89,16 @@
                 </div>
             @endif
 
-            {{-- Judul --}}
-            <label>Judul Penelitian</label>
+            <label>{{ $terjemahkan('Judul Penelitian', 'crud_judul_penelitian') }}</label>
             <input type="text" name="judul"
                 value="{{ old('judul', $penelitian->judul) }}"
                 required class="form-control mb-3">
 
-            {{-- Isi --}}
-            <label>Isi Penelitian</label>
+            <label>{{ $terjemahkan('Isi Penelitian', 'crud_isi_penelitian') }}</label>
             <textarea name="isi" rows="5" required
                 class="form-control mb-3">{{ old('isi', $data['isi_penelitian'] ?? '') }}</textarea>
 
-            {{-- Foto utama --}}
-            <label>Foto Utama</label>
+            <label>{{ $terjemahkan('Foto Utama', 'crud_foto_utama') }}</label>
 
             @if (isset($gambar[0]))
                 <img src="{{ asset('storage/' . $gambar[0]) }}"
@@ -94,25 +108,23 @@
             <input type="file" name="image[0]"
                 accept="image/*" class="form-control mb-3">
 
-            {{-- Tanggal --}}
-            <label>Tanggal</label>
+            <label>{{ $terjemahkan('Tanggal', 'crud_tanggal') }}</label>
             <input type="date" name="tanggal"
                 value="{{ old('tanggal', $penelitian->tanggal) }}"
                 required class="form-control mb-3">
 
-            {{-- Anggota peneliti --}}
-            <label>Anggota Peneliti</label>
+            <label>{{ $terjemahkan('Anggota Peneliti', 'crud_anggota_peneliti') }}</label>
             <input type="text" name="peneliti"
                 value="{{ old('peneliti', $penelitian->peneliti) }}"
                 required class="form-control mb-3">
 
             <hr>
 
-            <h5>Gambar Penelitian (Maksimal 4)</h5>
+            <h5>{{ $terjemahkan('Gambar Penelitian (Maksimal 4)', 'crud_gambar_maksimal') }}</h5>
 
             @for ($i = 1; $i <= 4; $i++)
 
-                <label>Gambar {{ $i }}</label>
+                <label>{{ $terjemahkan('Gambar', 'crud_gambar') }} {{ $i }}</label>
 
                 @if (isset($gambar[$i]))
                     <img src="{{ asset('storage/' . $gambar[$i]) }}"
@@ -125,22 +137,22 @@
                     accept="image/*"
                     class="form-control mb-2">
 
-                <label>Deskripsi Gambar {{ $i }}</label>
+                <label>{{ $terjemahkan('Deskripsi Gambar', 'crud_deskripsi_gambar') }} {{ $i }}</label>
 
                 <textarea name="deskripsi_foto[]"
                     class="form-control mb-3"
-                    placeholder="Deskripsi gambar {{ $i }}">{{ old('deskripsi_foto.' . ($i - 1), $deskripsi[$i - 1] ?? '') }}</textarea>
+                    placeholder="{{ $terjemahkan('Deskripsi gambar', 'crud_placeholder_deskripsi') }} {{ $i }}">{{ old('deskripsi_foto.' . ($i - 1), $deskripsi[$i - 1] ?? '') }}</textarea>
 
             @endfor
 
             <div class="text-end">
                 <button type="submit" class="btn btn-primary">
-                    Simpan
+                    {{ $terjemahkan('Simpan', 'crud_simpan') }}
                 </button>
 
                 <a href="{{ route('penelitian.index') }}"
                     class="btn btn-secondary">
-                    Kembali
+                    {{ $terjemahkan('Kembali', 'crud_kembali') }}
                 </a>
             </div>
 
