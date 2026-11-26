@@ -1,19 +1,37 @@
 
 @extends('layout.app')
-@section('title', 'Detail Penelitian')
+@section('title', app()->getLocale() == 'en' ? 'Research Detail' : 'Detail Penelitian')
 @section('content')
 
 @php
-    // Membaca data penelitian
+    use Illuminate\Support\Facades\Cache;
+    use Stichoza\GoogleTranslate\GoogleTranslate;
+
+    $terjemahkan = function ($teks, $key) {
+        if (app()->getLocale() != 'en' || empty($teks)) {
+            return $teks;
+        }
+
+        return Cache::remember(
+            $key,
+            now()->addDays(30),
+            function () use ($teks) {
+                try {
+                    $translator = new GoogleTranslate('en');
+                    return $translator->translate($teks);
+                } catch (\Throwable $e) {
+                    return $teks;
+                }
+            }
+        );
+    };
+
     $data = json_decode($penelitian->isi, true);
 
-    // Jika JSON tersimpan lebih dari satu kali
     for ($i = 0; $i < 3 && is_string($data); $i++) {
         $data = json_decode($data, true);
     }
 
-    // Memeriksa kemungkinan data gambar tersimpan
-    // di dalam isi_penelitian
     if (
         is_array($data) &&
         isset($data['isi_penelitian']) &&
@@ -21,15 +39,11 @@
     ) {
         $dataDalam = json_decode($data['isi_penelitian'], true);
 
-        if (
-            is_array($dataDalam) &&
-            isset($dataDalam['gambar'])
-        ) {
+        if (is_array($dataDalam) && isset($dataDalam['gambar'])) {
             $data = $dataDalam;
         }
     }
 
-    // Format untuk data lama
     if (!is_array($data) || !isset($data['isi_penelitian'])) {
         $data = [
             'isi_penelitian' => $penelitian->isi,
@@ -49,9 +63,27 @@
         $deskripsi = [];
     }
 
-    // Cadangan foto utama untuk data lama
     if (empty($gambar) && $penelitian->image) {
         $gambar = [$penelitian->image];
+    }
+
+    $judul = $terjemahkan(
+        $penelitian->judul,
+        'penelitian_judul_en_' . $penelitian->id . '_' . $penelitian->updated_at->timestamp
+    );
+
+    $isiPenelitian = $terjemahkan(
+        $data['isi_penelitian'] ?? '',
+        'penelitian_isi_en_' . $penelitian->id . '_' . $penelitian->updated_at->timestamp
+    );
+
+    $deskripsiTerjemahan = [];
+
+    foreach ($deskripsi as $index => $isiDeskripsi) {
+        $deskripsiTerjemahan[$index] = $terjemahkan(
+            $isiDeskripsi,
+            'penelitian_deskripsi_en_' . $penelitian->id . '_' . $index . '_' . $penelitian->updated_at->timestamp
+        );
     }
 @endphp
 
@@ -118,43 +150,38 @@
 
 <div class="research-detail">
 
-    {{-- Judul penelitian --}}
-    <h2>{{ $penelitian->judul }}</h2>
+    <h2>{{ $judul }}</h2>
 
-    {{-- Foto utama --}}
     @if (!empty($gambar[0]))
         <div class="main-image">
             <img
                 src="{{ asset('storage/' . $gambar[0]) }}"
-                alt="{{ $penelitian->judul }}"
+                alt="{{ $judul }}"
             >
         </div>
     @endif
 
-    {{-- Isi penelitian --}}
     <div class="research-content">
-        {!! nl2br(e($data['isi_penelitian'] ?? '')) !!}
+        {!! nl2br(e($isiPenelitian)) !!}
     </div>
 
-    {{-- Empat foto tambahan dan deskripsinya --}}
     @foreach ($gambar as $index => $foto)
         @if ($index > 0)
             <div class="other-image">
 
                 <img
                     src="{{ asset('storage/' . $foto) }}"
-                    alt="Gambar penelitian {{ $index + 1 }}"
+                    alt="Research image {{ $index + 1 }}"
                 >
 
                 <div class="image-description">
-                    {{ $deskripsi[$index - 1] ?? '' }}
+                    {{ $deskripsiTerjemahan[$index - 1] ?? ($deskripsi[$index - 1] ?? '') }}
                 </div>
 
             </div>
         @endif
     @endforeach
 
-    {{-- Informasi penelitian --}}
     <div class="research-meta">
         <div>{{ $penelitian->tanggal }}</div>
 

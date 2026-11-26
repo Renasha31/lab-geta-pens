@@ -1,6 +1,42 @@
+
+@php
+    $judul = $berita->title;
+    $konten = $berita->konten;
+
+    if (app()->getLocale() == 'en') {
+
+        $judul = \Illuminate\Support\Facades\Cache::remember(
+            'berita_judul_en_' . $berita->id . '_' . $berita->updated_at->timestamp,
+            now()->addDays(30),
+            function () use ($berita) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($berita->title);
+                } catch (\Throwable $e) {
+                    return $berita->title;
+                }
+            }
+        );
+
+        $konten = \Illuminate\Support\Facades\Cache::remember(
+            'berita_konten_en_' . $berita->id . '_' . $berita->updated_at->timestamp,
+            now()->addDays(30),
+            function () use ($berita) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($berita->konten);
+                } catch (\Throwable $e) {
+                    return $berita->konten;
+                }
+            }
+        );
+    }
+@endphp
+
 @extends('layout.app')
-@section('title', 'Detail Berita')
+@section('title', app()->getLocale() == 'en' ? 'News Detail' : 'Detail Berita')
 @section('content')
+
     <style>
         .research-detail {
             max-width: 1100px;
@@ -42,16 +78,20 @@
         }
     </style>
 
-        <div class="research-detail">
-            <h2>{{ $berita->title }}</h2>
-            <div class="research-image">
-                <img src="{{ url('storage/' . $berita->gambar) }}" alt="{{ $berita->title }}">
-            </div>
-            <div class="research-content">
-                {!! nl2br(e($berita->konten)) !!}
-            </div>
-            <div class="research-meta">
-                <div>{{ $berita->tgl }}</div>
-            </div>
+    <div class="research-detail">
+        <h2>{{ $judul }}</h2>
+
+        <div class="research-image">
+            <img src="{{ url('storage/' . $berita->gambar) }}" alt="{{ $judul }}">
         </div>
+
+        <div class="research-content">
+            {!! nl2br(e($konten)) !!}
+        </div>
+
+        <div class="research-meta">
+            <div>{{ $berita->tgl }}</div>
+        </div>
+    </div>
+
 @endsection

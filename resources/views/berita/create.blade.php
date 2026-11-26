@@ -1,3 +1,4 @@
+
 @extends('layout.app')
 @section('title', 'Buat Berita')
 @section('content')
@@ -22,8 +23,11 @@
             <form action="{{ route('berita.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
-                <label>Judul berita</label>
+                <label>Judul berita (Indonesia)</label>
                 <input type="text" name="title" placeholder="Judul berita" required class="form-control mb-3">
+
+                <label>Judul berita (Inggris)</label>
+                <input type="text" name="title_en" placeholder="News title in English" class="form-control mb-3">
 
                 <label>Isi Berita</label>
                 <textarea name="konten" placeholder="Isi Berita" required rows="5" class="form-control mb-3"></textarea>

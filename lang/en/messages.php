@@ -21,4 +21,13 @@ return [
     'Announcements2025' => 'September 25, 2025: September 2025 Graduation Ceremony. September 15, 2025: Meisen Bulletin No. 938 published. July 15, 2025: Meisen Bulletin No. 937 published. April 3, 2025: New Student Entrance Ceremony. March 25, 2025: 2024 Graduation Ceremony. February 20, 2025: Undergraduate Thesis Presentation. February 17, 2025: Master Thesis Presentation. January 15, 2025: Meisen Bulletin No. 934 published.',
     'Previous' => 'Previous',
     'Next' => 'Next',
+
+    'LatestNews' => 'Latest News',
+    'Monday' => 'Mon',
+    'Tuesday' => 'Tue',
+    'Wednesday' => 'Wed',
+    'Thursday' => 'Thu',
+    'Friday' => 'Fri',
+    'Saturday' => 'Sat',
+    'Sunday' => 'Sun',
 ];

@@ -21,4 +21,13 @@ return [
     'Announcements2025' => '25 September 2025: Upacara Wisuda September 2025. 15 September 2025: Penerbitan Buletin Meisen No. 938. 15 Juli 2025: Penerbitan Buletin Meisen No. 937. 3 April 2025: Upacara Penerimaan Mahasiswa Baru. 25 Maret 2025: Upacara Wisuda 2024. 20 Februari 2025: Presentasi Skripsi Sarjana. 17 Februari 2025: Presentasi Tesis Magister. 15 Januari 2025: Penerbitan Buletin Meisen No. 934.',
     'Previous' => 'Sebelumnya',
     'Next' => 'Berikutnya',
+
+    'LatestNews' => 'Berita Terbaru',
+    'Monday' => 'Sen',
+    'Tuesday' => 'Sel',
+    'Wednesday' => 'Rab',
+    'Thursday' => 'Kam',
+    'Friday' => 'Jum',
+    'Saturday' => 'Sab',
+    'Sunday' => 'Min',
 ];

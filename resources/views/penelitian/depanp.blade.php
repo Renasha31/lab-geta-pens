@@ -1,6 +1,43 @@
+
 @extends('layout.app')
-@section('page-title', 'Penelitian')
+@section('page-title', app()->getLocale() == 'en' ? 'Researches' : 'Penelitian')
 @section('content')
+
+@php
+    $terjemahkan = function ($teks, $key) {
+        if (app()->getLocale() != 'en' || empty($teks)) {
+            return $teks;
+        }
+
+        return \Illuminate\Support\Facades\Cache::remember(
+            $key,
+            now()->addDays(30),
+            function () use ($teks) {
+                try {
+                    $translator = new \Stichoza\GoogleTranslate\GoogleTranslate('en');
+                    return $translator->translate($teks);
+                } catch (\Throwable $e) {
+                    return $teks;
+                }
+            }
+        );
+    };
+
+    $intro = $terjemahkan(
+        'Berdasarkan teknologi elektronika daya, kami melakukan berbagai penelitian untuk mengembangkan peralatan yang efisien dan ramah lingkungan.',
+        'penelitian_intro_en'
+    );
+
+    $subIntro = $terjemahkan(
+        'Eksplorasi inovasi dan pengembangan teknologi untuk masa depan.',
+        'penelitian_subintro_en'
+    );
+
+    $judulDaftar = $terjemahkan('Daftar Penelitian', 'penelitian_daftar_en');
+    $subJudul = $terjemahkan('Kumpulan penelitian yang telah dilakukan', 'penelitian_kumpulan_en');
+    $kosong = $terjemahkan('Belum Ada Penelitian', 'penelitian_kosong_en');
+    $pesanKosong = $terjemahkan('Data penelitian belum tersedia saat ini.', 'penelitian_pesan_kosong_en');
+@endphp
 
 <style>
     .penelitian-section {
@@ -166,13 +203,8 @@
 <div class="container penelitian-section">
 
     <div class="penelitian-intro">
-        <h3>
-            Berdasarkan teknologi elektronika daya, kami melakukan berbagai
-            penelitian untuk mengembangkan peralatan yang efisien dan ramah lingkungan.
-        </h3>
-        <p>
-            Eksplorasi inovasi dan pengembangan teknologi untuk masa depan.
-        </p>
+        <h3>{{ $intro }}</h3>
+        <p>{{ $subIntro }}</p>
     </div>
 
     <div class="penelitian-container">
@@ -182,17 +214,24 @@
                 <i class="bi bi-journal-text"></i>
             </div>
             <div>
-                <h4>Daftar Penelitian</h4>
-                <p>Kumpulan penelitian yang telah dilakukan</p>
+                <h4>{{ $judulDaftar }}</h4>
+                <p>{{ $subJudul }}</p>
             </div>
         </div>
 
         @forelse ($penelitian as $p)
+            @php
+                $judul = $terjemahkan(
+                    $p->judul,
+                    'penelitian_depanp_judul_en_' . $p->id . '_' . $p->updated_at->timestamp
+                );
+            @endphp
+
             <div class="penelitian-card">
                 <a href="{{ route('penelitian.show', $p->id) }}"
                     class="penelitian-link">
 
-                    <h5>{{ $p->judul }}</h5>
+                    <h5>{{ $judul }}</h5>
 
                     <i class="bi bi-arrow-right-circle penelitian-arrow"></i>
                 </a>
@@ -200,8 +239,8 @@
         @empty
             <div class="penelitian-empty">
                 <i class="bi bi-journal-x"></i>
-                <h5>Belum Ada Penelitian</h5>
-                <p>Data penelitian belum tersedia saat ini.</p>
+                <h5>{{ $kosong }}</h5>
+                <p>{{ $pesanKosong }}</p>
             </div>
         @endforelse
 

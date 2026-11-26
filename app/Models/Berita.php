@@ -8,6 +8,7 @@ class Berita extends Model
 {
     protected $fillable = [
         'title',
+        'title_en',
         'konten',
         'tgl',
         'gambar'
