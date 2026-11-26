@@ -168,6 +168,25 @@
             <h2>Selamat Datang!</h2>
             <p class="subtitle">Silahkan login untuk mengelola data penelitian dan anggota.</p>
 
+        @if (session('success'))
+            <div style="background: #d1e7dd; color: #0f5132; padding: 13px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div style="background: #f8d7da; color: #842029; padding: 13px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div style="background: #f8d7da; color: #842029; padding: 13px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+
             <form action="{{ url('login') }}" method="POST">
                 @csrf
 

@@ -24,15 +24,15 @@ class PenulisController extends Controller
 
         if (!$key->isEmpty()) {
             session()->put('key', $key);
-            return redirect('/');
+            return redirect('/')->with('success', 'Login berhasil!');
         }
 
-        return redirect('/login');
+        return redirect('/login')->with('error', 'Username atau password salah!');
     }
 
     public function logout()
     {
         session()->flush();
-        return redirect('/');
+        return redirect('/')->with('success', 'Berhasil logout!');
     }
 }

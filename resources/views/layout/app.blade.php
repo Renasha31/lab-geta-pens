@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 
@@ -11,6 +10,57 @@
     <title>@yield('title', 'GETA Laboratorium')</title>
 
     <style>
+        #toast-success {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: #198754;
+            color: white;
+            padding: 9px 13px;
+            border-radius: 6px;
+            font-size: 13px;
+            box-shadow: 0 3px 10px #00000020;
+            animation: masuk 0.5s ease forwards;
+        }
+
+        #toast-success button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        #toast-success.hide {
+            animation: keluar 0.5s ease forwards;
+        }
+
+        @keyframes masuk {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes keluar {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
         .research-detail {
             font-family: sans-serif;
             scrollbar-gutter: stable;
@@ -93,6 +143,15 @@
 </head>
 
 <body class="research-detail">
+
+    <!-- alert login -->
+    @if (session('success'))
+        <div id="toast-success">
+            <span style="font-size: 15px; font-weight: bold;">✓</span>
+            <span>{{ session('success') }}</span>
+            <button onclick="closeToast()">×</button>
+        </div>
+    @endif
 
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -302,6 +361,18 @@
                 navbarKecil = false;
             }
         });
+    </script>
+
+    <script>
+        function closeToast() {
+            let toast = document.getElementById('toast-success');
+            if (toast) {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 500);
+            }
+        }
+
+        setTimeout(closeToast, 3500);
     </script>
 
 </body>
