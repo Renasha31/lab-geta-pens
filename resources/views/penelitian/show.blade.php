@@ -88,7 +88,7 @@
 @endphp
 
 <style>
-    .research-detail {
+    .research-detail-content {
         max-width: 1100px;
         margin: 20px auto;
         font-family: Arial, sans-serif;
@@ -146,7 +146,7 @@
     }
 </style>
 
-<div class="research-detail">
+<div class="research-detail-content">
 
     <h2>{{ $judul }}</h2>
 
