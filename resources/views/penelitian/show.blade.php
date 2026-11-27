@@ -111,7 +111,6 @@
         width: 100%;
         max-height: 450px;
         object-fit: contain;
-        border-radius: 10px;
     }
 
     .research-content {
@@ -131,7 +130,6 @@
         max-width: 100%;
         height: 300px;
         object-fit: contain;
-        border-radius: 10px;
     }
 
     .image-description {

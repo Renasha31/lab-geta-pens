@@ -63,7 +63,6 @@
         object-fit: contain;
         display: block;
         margin: 10px 0;
-        border-radius: 8px;
     }
 </style>
 
@@ -71,7 +70,6 @@
     <h2>{{ $terjemahkan('Edit Data Penelitian', 'crud_penelitian_edit') }}</h2>
 
     <div class="card mt-3">
-
         <form action="{{ route('penelitian.update', $penelitian->id) }}"
             method="POST" enctype="multipart/form-data">
 
@@ -98,17 +96,7 @@
             <textarea name="isi" rows="5" required
                 class="form-control mb-3">{{ old('isi', $data['isi_penelitian'] ?? '') }}</textarea>
 
-            <label>{{ $terjemahkan('Foto Utama', 'crud_foto_utama') }}</label>
-
-            @if (isset($gambar[0]))
-                <img src="{{ asset('storage/' . $gambar[0]) }}"
-                    class="preview-image" alt="Foto utama">
-            @endif
-
-            <input type="file" name="image[0]"
-                accept="image/*" class="form-control mb-3">
-
-            <label>{{ $terjemahkan('Tanggal', 'crud_tanggal') }}</label>
+            <label>{{ $terjemahkan('Tanggal Penelitian', 'crud_tanggal') }}</label>
             <input type="date" name="tanggal"
                 value="{{ old('tanggal', $penelitian->tanggal) }}"
                 required class="form-control mb-3">
@@ -120,11 +108,19 @@
 
             <hr>
 
-            <h5>{{ $terjemahkan('Gambar Penelitian (Maksimal 4)', 'crud_gambar_maksimal') }}</h5>
+            <label>{{ $terjemahkan('Dokumentasi Penelitian (Maksimal 4 Gambar)', 'crud_gambar_maksimal') }}</label>
+            <p>{{ $terjemahkan('Gambar lama akan tetap digunakan jika tidak diganti. Deskripsi gambar boleh dikosongkan.', 'crud_petunjuk_edit_gambar') }}</p>
 
-            @for ($i = 1; $i <= 4; $i++)
+            @for ($i = 0; $i < 4; $i++)
 
-                <label>{{ $terjemahkan('Gambar', 'crud_gambar') }} {{ $i }}</label>
+                <label>
+                    {{ $terjemahkan('Gambar', 'crud_gambar') }} {{ $i + 1 }}
+                    @if ($i == 0)
+                        ({{ $terjemahkan('Foto Utama', 'crud_foto_utama') }})
+                    @else
+                        ({{ $terjemahkan('Opsional', 'crud_opsional') }})
+                    @endif
+                </label>
 
                 @if (isset($gambar[$i]))
                     <img src="{{ asset('storage/' . $gambar[$i]) }}"
@@ -137,11 +133,11 @@
                     accept="image/*"
                     class="form-control mb-2">
 
-                <label>{{ $terjemahkan('Deskripsi Gambar', 'crud_deskripsi_gambar') }} {{ $i }}</label>
+                <label>{{ $terjemahkan('Deskripsi Gambar', 'crud_deskripsi_gambar') }} {{ $i + 1 }} ({{ $terjemahkan('Opsional', 'crud_opsional') }})</label>
 
-                <textarea name="deskripsi_foto[]"
+                <textarea name="deskripsi_foto[{{ $i }}]"
                     class="form-control mb-3"
-                    placeholder="{{ $terjemahkan('Deskripsi gambar', 'crud_placeholder_deskripsi') }} {{ $i }}">{{ old('deskripsi_foto.' . ($i - 1), $deskripsi[$i - 1] ?? '') }}</textarea>
+                    placeholder="{{ $terjemahkan('Tuliskan keterangan gambar jika diperlukan', 'crud_placeholder_deskripsi') }}">{{ old('deskripsi_foto.' . $i, $deskripsi[$i] ?? '') }}</textarea>
 
             @endfor
 
@@ -157,7 +153,6 @@
             </div>
 
         </form>
-
     </div>
 </div>
 

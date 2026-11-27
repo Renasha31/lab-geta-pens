@@ -111,54 +111,61 @@ class PenelitianController extends Controller
     {
         $penelitian = Penelitian::findOrFail($id);
 
-    $request->validate([
-        'judul' => 'required',
-        'isi' => 'required',
-        'tanggal' => 'required|date',
-        'peneliti' => 'required',
-        'image' => 'nullable|array|max:5',
-        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
-        'gambar_lama' => 'nullable|array',
-        'deskripsi_foto' => 'nullable|array|max:4',
-        'deskripsi_foto.*' => 'nullable|string',
-    ]);
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'tanggal' => 'required|date',
+            'peneliti' => 'required',
+            'image' => 'nullable|array|max:4',
+            'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
+            'deskripsi_foto' => 'nullable|array|max:4',
+            'deskripsi_foto.*' => 'nullable|string',
+        ]);
 
-    $dataLama = json_decode($penelitian->isi, true);
+        $dataLama = json_decode($penelitian->isi, true);
 
-    if (is_string($dataLama)) {
-        $dataLama = json_decode($dataLama, true);
-    }
-
-    $gambar = $dataLama['gambar'] ?? [$penelitian->image];
-    $deskripsi = $dataLama['deskripsi_foto'] ?? [];
-
-    foreach ($request->file('image', []) as $index => $foto) {
-        if ($foto) {
-            $gambar[$index] = $foto->store('images', 'public');
+        if (is_string($dataLama)) {
+            $dataLama = json_decode($dataLama, true);
         }
-    }
 
-    if ($request->has('deskripsi_foto')) {
-        $deskripsi = $request->deskripsi_foto;
-    }
+        $gambar = $dataLama['gambar'] ?? [$penelitian->image];
+        $deskripsi = $dataLama['deskripsi_foto'] ?? [];
 
-    $gambar = array_values($gambar);
+        for ($i = 0; $i < 4; $i++) {
+            if ($request->hasFile("image.$i")) {
+                $gambar[$i] = $request->file("image.$i")->store('images', 'public');
+            }
 
-    $isi = [
-        'isi_penelitian' => $request->isi,
-        'gambar' => $gambar,
-        'deskripsi_foto' => array_values($deskripsi),
-    ];
+            if ($request->has("deskripsi_foto.$i")) {
+                $deskripsi[$i] = $request->input("deskripsi_foto.$i");
+            }
+        }
 
-    $penelitian->judul = $request->judul;
-    $penelitian->isi = json_encode($isi);
-    $penelitian->image = $gambar[0] ?? $penelitian->image;
-    $penelitian->tanggal = $request->tanggal;
-    $penelitian->peneliti = $request->peneliti;
+        $gambarBaru = [];
+        $deskripsiBaru = [];
 
-    $penelitian->save();
+        for ($i = 0; $i < 4; $i++) {
+            if (isset($gambar[$i])) {
+                $gambarBaru[] = $gambar[$i];
+                $deskripsiBaru[] = $deskripsi[$i] ?? '';
+            }
+        }
 
-    return redirect()->route('penelitian.index');
+        $isi = [
+            'isi_penelitian' => $request->isi,
+            'gambar' => $gambarBaru,
+            'deskripsi_foto' => $deskripsiBaru,
+        ];
+
+        $penelitian->judul = $request->judul;
+        $penelitian->isi = json_encode($isi);
+        $penelitian->image = $gambarBaru[0] ?? $penelitian->image;
+        $penelitian->tanggal = $request->tanggal;
+        $penelitian->peneliti = $request->peneliti;
+
+        $penelitian->save();
+
+        return redirect()->route('penelitian.index');
     }
 
     /**
