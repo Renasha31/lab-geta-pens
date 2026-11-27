@@ -135,13 +135,13 @@
     .image-description {
         margin-top: 10px;
         font-size: 15px;
-        color: #666;
+        color: #444;
     }
 
     .research-meta {
         margin-top: 25px;
         font-size: 13px;
-        color: #777;
+        color: #444;
         line-height: 1.8;
     }
 </style>
@@ -180,12 +180,13 @@
         @endif
     @endforeach
 
-    <div class="research-meta">
-        <div>{{ $penelitian->tanggal }}</div>
-
-        <div>
-            {!! nl2br(e($penelitian->peneliti)) !!}
-        </div>
+    <div class="research-meta d-flex align-items-center gap-3" style="margin-top: 8px; font-size: 12px; color: #107c70;">
+        <span style="background: #eef2f8; color: #49658f; padding: 4px 9px; border-radius: 4px;">
+            {{ $penelitian->tanggal }}
+        </span>
+        <span style="color: #777;">
+            Tim Peneliti: {!! nl2br(e($penelitian->peneliti)) !!}
+        </span>
     </div>
 
 </div>
