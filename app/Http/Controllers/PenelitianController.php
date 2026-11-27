@@ -45,15 +45,16 @@ class PenelitianController extends Controller
     {
 
         $request->validate([
-            'judul' => 'required',
-            'isi' => 'required',
-            'tanggal' => 'required|date',
-            'peneliti' => 'required',
-            'image' => 'required|array|max:5',
-            'image.*' => 'image|mimes:jpg,jpeg,png,webp|max:10240',
-            'deskripsi_foto' => 'required|array|max:5',
-            'deskripsi_foto.*' => 'required|string',
-        ]);
+        'judul' => 'required',
+        'isi' => 'required',
+        'tanggal' => 'required|date',
+        'peneliti' => 'required',
+        'image' => 'required|array|max:4',
+        'image.0' => 'required|image|mimes:jpg,jpeg,png,webp|max:10240',
+        'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
+        'deskripsi_foto' => 'nullable|array|max:4',
+        'deskripsi_foto.*' => 'nullable|string',
+    ]   );
 
         $image = [];
 
